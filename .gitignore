@@ -1,0 +1,12 @@
+bin/
+obj/
+.idea/
+*.sln.iml
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.DS_Store
+Thumbs.db
+.paket/
+.fake/
