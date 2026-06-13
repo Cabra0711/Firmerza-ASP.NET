@@ -46,29 +46,29 @@ public class LoginService : ILoginService
 
         if (customerExists != null)
         {
-            response.Message = "El usuario ya que digitaste ya existe en el sistema";
+            response.Message = "Este usuario ya existe en el sistema";
             response.Success = false;
             return response;
         }
         else
         {
-            response.Message = "Usuario registrado con exito";
-            response.Success = true;
-            response.Data = customer;
-
-
             customer.Role = UserRole.Customer;
             customer.Password = BCrypt.Net.BCrypt.HashPassword(customer.Password);
             await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
+            
+            response.Message = "Usuario registrado con exito";
+            response.Success = true;
+            response.Data = customer;
+            
             return response;
         }
     }
 
-    public async Task<ServiceResponse<Customer>> Login(string name, string password)
+    public async Task<ServiceResponse<Customer>> Login(string username, string password)
     {
         var response = new ServiceResponse<Customer>();
-        var customerExists = await _context.Customers.SingleOrDefaultAsync(c => c.Name == name);
+        var customerExists = await _context.Customers.SingleOrDefaultAsync(c => c.UserName == username);
         
         if (customerExists == null)
         {
@@ -90,7 +90,7 @@ public class LoginService : ILoginService
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, customerExists.Name),
+                    new Claim(ClaimTypes.Name, customerExists.UserName),
                     new Claim(ClaimTypes.Role, customerExists.Role.ToString()),
                 }),
                 IssuedAt = DateTime.UtcNow,
