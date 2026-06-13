@@ -1,0 +1,69 @@
+<!-- Background Elements -->
+<div class="fixed inset-0 pointer-events-none">
+  <div class="ambient-glow absolute top-1/4 -left-20 w-[600px] h-[600px] rounded-full"></div>
+  <div class="ambient-glow absolute bottom-1/4 -right-20 w-[500px] h-[500px] rounded-full bg-secondary/20"></div>
+  
+  <!-- Floating Glass Elements -->
+  <div class="floating glass-panel absolute top-20 right-[15%] w-32 h-32 rounded-2xl rotate-12"></div>
+  <div class="floating-delayed glass-panel absolute bottom-40 left-[10%] w-48 h-48 rounded-full"></div>
+  <div class="floating glass-panel absolute top-1/2 left-[5%] w-16 h-16 rounded-lg -rotate-45"></div>
+</div>
+
+<!-- Main Content Card -->
+<main class="relative z-10 w-full max-w-4xl px-container-margin">
+  <div class="glass-panel p-12 md:p-20 rounded-[2rem] text-center shadow-2xl relative overflow-hidden">
+    <!-- Animated Inner Glow -->
+    <div class="absolute -top-40 -left-40 w-80 h-80 bg-primary/10 rounded-full blur-[100px]"></div>
+    
+    <!-- Icon Section -->
+    <div class="mb-lg inline-flex items-center justify-center w-24 h-24 rounded-full bg-primary/10 border border-primary/20 text-primary mb-8 relative">
+      <span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">lock</span>
+      <div class="absolute inset-0 rounded-full animate-pulse bg-primary/5"></div>
+    </div>
+    
+    <!-- Text Content -->
+    <h1 class="font-display-lg text-[120px] leading-none mb-4 tracking-tighter bg-gradient-to-b from-white to-white/20 bg-clip-text text-transparent">
+      401
+    </h1>
+    <h2 class="font-headline-lg text-headline-lg text-primary mb-lg">
+      Acceso No Autorizado
+    </h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto mb-2xl">
+      Lo sentimos, parece que no tienes los permisos necesarios para ver esta sección o tu sesión ha caducado.
+    </p>
+    
+    <!-- Action Buttons -->
+    <div class="flex flex-col md:flex-row gap-md justify-center items-center">
+      <a asp-controller="Firmeza" asp-action="Login">
+        <button class="w-full md:w-auto px-xl py-lg bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:scale-105 transition-all duration-200 active:scale-95 shadow-[0_0_20px_rgba(192,193,255,0.4)]">
+          Iniciar Sesión
+        </button>
+      </a>
+      <a asp-action="Landing" asp-controller="Firmeza">
+        <button class="w-full md:w-auto px-xl py-lg glass-panel border-secondary text-secondary font-label-md text-label-md rounded-xl hover:bg-secondary/10 hover:scale-105 transition-all duration-200 active:scale-95">
+          Ir al Inicio
+        </button>
+      </a>
+    </div>
+    
+    <!-- Footer Decorative Detail -->
+    <div class="mt-2xl flex items-center justify-center gap-md text-outline">
+      <div class="h-px w-12 bg-outline-variant/30"></div>
+      <span class="font-code text-code opacity-50 uppercase tracking-widest">StockStream Admin Terminal</span>
+      <div class="h-px w-12 bg-outline-variant/30"></div>
+    </div>
+  </div>
+</main>
+
+<!-- Atmospheric Mouse Trail Script -->
+<script>
+  document.addEventListener('mousemove', (e) => {
+    const glow = document.querySelector('.ambient-glow');
+    const x = (e.clientX / window.innerWidth) * 20;
+    const y = (e.clientY / window.innerHeight) * 20;
+      
+    document.querySelectorAll('.floating, .floating-delayed').forEach(el => {
+      el.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  });
+</script>

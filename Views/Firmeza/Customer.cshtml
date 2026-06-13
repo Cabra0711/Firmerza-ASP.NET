@@ -1,0 +1,275 @@
+<div class="fixed inset-0 -z-10 overflow-hidden">
+
+</div>
+<!-- SideNavBar Anchor -->
+<aside
+    class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant/20 bg-surface-container/60 backdrop-blur-xl dark:bg-surface-container/60 shadow-xl flex flex-col py-lg z-50">
+    <div class="px-md mb-xl">
+        <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+            StockStream</h1>
+        <p class="font-label-md text-label-md text-on-surface-variant opacity-70">Admin Terminal</p>
+    </div>
+    <nav class="flex-1 space-y-xs">
+        <!-- Mapping Dashboard -->
+        <a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-bright/50 transition-all duration-200 active:scale-95"
+           href="#">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-body-md text-body-md">Dashboard</span>
+        </a>
+        <!-- Mapping Users (Active for Client Management) -->
+        <a class="flex items-center gap-md bg-primary/20 text-primary border-r-4 border-primary px-md py-sm transition-all duration-200"
+           href="#">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+            <span class="font-body-md text-body-md">Users</span>
+        </a>
+        <!-- Mapping Orders -->
+        <a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-bright/50 transition-all duration-200 active:scale-95"
+           href="#">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="font-body-md text-body-md">Sells</span>
+        </a>
+        <!-- Mapping Settings -->
+        <a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-bright/50 transition-all duration-200 active:scale-95"
+           href="#">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-body-md text-body-md">Settings</span>
+        </a>
+    </nav>
+    <div class="px-md mt-auto pt-lg">
+        <button
+            class="w-full py-md bg-primary text-on-primary rounded-xl font-bold kinetic-glow transition-all active:scale-95 flex items-center justify-center gap-sm">
+            <span class="material-symbols-outlined">add</span>
+            New Entry
+        </button>
+    </div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+    <!-- TopNavBar Anchor -->
+    <header
+        class="h-16 w-full flex justify-between items-center px-xl bg-surface-dim/40 backdrop-blur-md dark:bg-surface-dim/40 border-b border-outline-variant/10 shadow-sm sticky top-0 z-40">
+        <div class="flex items-center gap-lg flex-1">
+            <div class="relative w-full max-w-md group">
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input
+                    class="w-full bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 focus:ring-2 focus:ring-primary/50 text-on-surface placeholder:text-on-surface-variant transition-all"
+                    placeholder="Search customers..." type="text"/>
+            </div>
+        </div>
+        <div class="flex items-center gap-lg">
+            <div class="flex items-center gap-md">
+                <button
+                    class="p-2 hover:bg-surface-variant/30 rounded-lg transition-colors text-on-surface-variant hover:text-primary">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="p-2 hover:bg-surface-variant/30 rounded-lg transition-colors text-on-surface-variant hover:text-primary">
+                    <span class="material-symbols-outlined">help_outline</span>
+                </button>
+            </div>
+            <div class="h-8 w-[1px] bg-outline-variant/20"></div>
+            <button
+                class="flex items-center gap-md pl-md pr-sm py-1 hover:bg-surface-variant/30 rounded-lg transition-colors group">
+                <span
+                    class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary">Administrator</span>
+                <div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+                    <img alt="Administrator" class="w-full h-full object-cover"
+                         data-alt="Close up portrait of a professional male administrator in a high-tech corporate office setting. He is wearing a dark, minimalist suit with sharp tailoring. The lighting is cold, cinematic blue with bright indigo highlights, reflecting the dark mode glassmorphism UI style. The background is a blurred architectural space with glowing fiber optic lines."
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_mZMGklMWCdMM5GDRi9F32rR0dHPm7CqBZrLKsuZzj8kW_xZBB1ZbOqpz5ngXQ9G-EwlOw7D3ugFBH8CVyIaNVczgVd7XVUfHr47kmXMOy-TGF2aZBkXqKxaXuu93IAmfvP1JMu_YvODoQn1Vkv-LcTdsH89a97SLrVWWk7DmyIEvgfNZZkrg5k7jWccTfw3iU-vxQf8NdCgQyu95IIH8HJXYojlMTT9swS1Ad4U58-MLbqDM6OAUYY6-Vo2R570xGAWyMdXwVz0"/>
+                </div>
+            </button>
+        </div>
+    </header>
+    <!-- Page Content -->
+    <section class="p-xl space-y-xl">
+        <!-- Header Section -->
+        <div class="flex justify-between items-end">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Client Management</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Manage your customer database and account
+                    statuses.</p>
+            </div>
+            <button
+                class="flex items-center gap-sm px-xl py-lg bg-tertiary text-on-tertiary rounded-xl font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">
+                <span class="material-symbols-outlined">person_add</span>
+                New Customer
+            </button>
+        </div>
+        <!-- Dashboard Stats Summary (Bento Style) -->
+        <div class="grid grid-cols-12 gap-gutter">
+            <div
+                class="col-span-3 glass-panel p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group">
+                <div class="relative z-10">
+                    <p class="text-label-md text-on-surface-variant uppercase tracking-widest">Total Clients</p>
+                    <h3 class="font-display-lg text-display-lg text-primary">1,284</h3>
+                </div>
+                <div class="absolute -right-4 -bottom-4 text-primary/10 transition-transform group-hover:scale-110">
+                    <span class="material-symbols-outlined !text-7xl">groups</span>
+                </div>
+            </div>
+            <div
+                class="col-span-3 glass-panel p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group">
+                <div class="relative z-10">
+                    <p class="text-label-md text-on-surface-variant uppercase tracking-widest">Active Now</p>
+                    <h3 class="font-display-lg text-display-lg text-tertiary">95%</h3>
+                </div>
+                <div class="absolute -right-4 -bottom-4 text-tertiary/10 transition-transform group-hover:scale-110">
+                    <span class="material-symbols-outlined !text-7xl">bolt</span>
+                </div>
+            </div>
+            <div
+                class="col-span-6 glass-panel p-lg rounded-xl h-32 flex items-center justify-between border-l-4 border-secondary">
+                <div>
+                    <h4 class="font-headline-md text-headline-md text-on-surface">Compliance Alert</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant">4 accounts pending identity
+                        verification updates.</p>
+                </div>
+                <button
+                    class="px-md py-sm border border-secondary text-secondary rounded-lg hover:bg-secondary/10 transition-colors">
+                    View All
+                </button>
+            </div>
+        </div>
+        <!-- Customer Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+            <!-- Customer Card Template -->
+            <script>
+                const customers = [
+                    {
+                        name: "Elena Rodriguez",
+                        email: "elena.r@nexus.com",
+                        status: "Active",
+                        img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&h=300&auto=format&fit=crop"
+                    },
+                    {
+                        name: "Marcus Thorne",
+                        email: "m.thorne@glacier.io",
+                        status: "Inactive",
+                        img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&h=300&auto=format&fit=crop"
+                    },
+                    {
+                        name: "Sarah Chen",
+                        email: "schen@vortex.tech",
+                        status: "Active",
+                        img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&h=300&auto=format&fit=crop"
+                    },
+                    {
+                        name: "Julian Voss",
+                        email: "j.voss@aether.net",
+                        status: "Active",
+                        img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=300&h=300&auto=format&fit=crop"
+                    },
+                    {
+                        name: "Amara Okoro",
+                        email: "amara@horizon.com",
+                        status: "Inactive",
+                        img: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=300&h=300&auto=format&fit=crop"
+                    },
+                    {
+                        name: "David Miller",
+                        email: "dmiller@prism.co",
+                        status: "Active",
+                        img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=300&h=300&auto=format&fit=crop"
+                    }
+                ];
+
+                document.write(customers.map(c => `
+        <div class="glass-panel rounded-xl overflow-hidden group hover:border-primary/30 transition-all duration-300">
+            <!-- Top: avatar + info + badge -->
+            <div class="flex items-center gap-md p-md">
+                <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-primary/20">
+                    <img src="${c.img}" alt="${c.name}" class="w-full h-full object-cover"/>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between gap-sm">
+                        <div class="min-w-0">
+                            <h4 class="font-headline-md text-[18px] text-on-surface leading-tight truncate">${c.name}</h4>
+                            <p class="font-label-md text-label-md text-on-surface-variant font-normal lowercase truncate">${c.email}</p>
+                        </div>
+                        <span class="flex-shrink-0 px-sm py-xs rounded-full text-[10px] font-bold uppercase tracking-widest ${
+                    c.status === 'Active'
+                        ? 'bg-tertiary/10 text-tertiary border border-tertiary/20'
+                        : 'bg-on-surface-variant/10 text-on-surface-variant border border-on-surface-variant/20'
+                }">
+                            ${c.status}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom: action buttons -->
+            <div class="grid grid-cols-2 border-t border-outline-variant/20">
+                <button 
+                    class="flex items-center justify-center gap-xs py-sm text-on-surface-variant hover:bg-surface-bright/50 hover:text-on-surface transition-all active:scale-95 font-label-md text-label-md border-r border-outline-variant/20"
+                    onclick="toggleStatus(this, '${c.status}')">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="${c.status === 'Active' ? 'block' : 'check_circle'}"></span>
+                    ${c.status === 'Active' ? 'Disable' : 'Enable'}
+                </button>
+                <button 
+                    class="flex items-center justify-center gap-xs py-sm text-error hover:bg-error-container/20 transition-all active:scale-95 font-label-md text-label-md">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="delete"></span>
+                    Delete
+                </button>
+            </div>
+        </div>
+    `).join(''));
+            </script>
+        </div>
+        <!-- Empty State / Pagination Placeholder -->
+        <div class="flex justify-center pt-xl">
+            <div class="flex items-center gap-sm">
+                <button class="p-2 glass-panel rounded-lg hover:text-primary transition-colors disabled:opacity-30"
+                        disabled="">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <div class="flex gap-xs">
+                    <button class="w-10 h-10 rounded-lg bg-primary text-on-primary font-bold">1</button>
+                    <button class="w-10 h-10 rounded-lg glass-panel hover:bg-surface-variant transition-colors">2
+                    </button>
+                    <button class="w-10 h-10 rounded-lg glass-panel hover:bg-surface-variant transition-colors">3
+                    </button>
+                </div>
+                <button class="p-2 glass-panel rounded-lg hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Micro-interaction scripts -->
+<script>
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+        btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+        btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+    });
+
+    // Search bar focus effect
+    const searchInput = document.querySelector('input[type="text"]');
+    const searchContainer = searchInput.parentElement;
+    searchInput.addEventListener('focus', () => {
+        searchContainer.classList.add('ring-2', 'ring-primary/50');
+    });
+    searchInput.addEventListener('blur', () => {
+        searchContainer.classList.remove('ring-2', 'ring-primary/50');
+    });
+
+    function toggleStatus(btn, currentStatus) {
+        const card = btn.closest('.glass-panel');
+        const badge = card.querySelector('span.rounded-full');
+        const icon = btn.querySelector('.material-symbols-outlined');
+        const isActive = currentStatus === 'Active' || btn.textContent.trim().startsWith('Disable');
+
+        if (isActive) {
+            badge.textContent = 'Inactive';
+            badge.className = 'flex-shrink-0 px-sm py-xs rounded-full text-[10px] font-bold uppercase tracking-widest bg-on-surface-variant/10 text-on-surface-variant border border-on-surface-variant/20';
+            icon.setAttribute('data-icon', 'check_circle');
+            btn.childNodes[btn.childNodes.length - 1].textContent = ' Enable';
+        } else {
+            badge.textContent = 'Active';
+            badge.className = 'flex-shrink-0 px-sm py-xs rounded-full text-[10px] font-bold uppercase tracking-widest bg-tertiary/10 text-tertiary border border-tertiary/20';
+            icon.setAttribute('data-icon', 'block');
+            btn.childNodes[btn.childNodes.length - 1].textContent = ' Disable';
+        }
+    }
+</script>

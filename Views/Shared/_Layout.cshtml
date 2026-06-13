@@ -1,49 +1,265 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Firmeza</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Firmeza.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Firmeza.styles.css" asp-append-version="true"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-panel {
+            background: rgba(27, 43, 63, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(192, 193, 255, 0.1);
+        }
+
+        .glow-indigo {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+        }
+
+        .kinetic-gradient {
+            background: radial-gradient(circle at 50% 50%, #102034 0%, #031427 100%);
+        }
+
+        .animated-blob {
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: move 20s infinite alternate;
+        }
+
+        keyframes move {
+            from {
+                transform: translate(-10%, -10%) scale(1);
+            }
+
+            to {
+                transform: translate(10%, 10%) scale(1.1);
+            }
+        }
+
+        .tab-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .material-symbols-outlined[data-icon]::before {
+            content: attr(data-icon);
+        }
+
+        body {
+            background-color: #031427;
+            color: #d3e4fe;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(16, 32, 52, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(192, 193, 255, 0.1);
+        }
+        .kinetic-glow {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-glow {
+            box-shadow: inset 4px 0 0 0 #c0c1ff;
+        }
+        .glass-panel {
+            background: rgba(27, 43, 63, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(192, 193, 255, 0.1);
+        }
+        .kinetic-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .kinetic-hover:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(16, 32, 52, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(144, 143, 160, 0.1);
+        }
+        .kinetic-glow:hover {
+            box-shadow: 0 0 20px rgba(192, 193, 255, 0.3);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ambient-glow {
+            filter: blur(120px);
+            opacity: 0.4;
+            background: #6366f1;
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .floating-delayed {
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#005236",
+                        "background": "#031427",
+                        "surface-tint": "#c0c1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#0d0096",
+                        "tertiary-fixed": "#6ffbbe",
+                        "surface-dim": "#031427",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d3e4fe",
+                        "on-tertiary-fixed": "#002113",
+                        "on-primary": "#1000a9",
+                        "inverse-primary": "#494bd6",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#8c0053",
+                        "surface-container-high": "#1b2b3f",
+                        "primary-container": "#8083ff",
+                        "on-tertiary-container": "#000703",
+                        "surface-container-lowest": "#000f21",
+                        "secondary-fixed": "#ffd9e4",
+                        "on-primary-fixed": "#07006c",
+                        "surface-variant": "#26364a",
+                        "surface": "#031427",
+                        "on-tertiary": "#003824",
+                        "on-secondary-container": "#ffbad3",
+                        "surface-container-low": "#0b1c30",
+                        "surface-bright": "#2a3a4f",
+                        "inverse-surface": "#d3e4fe",
+                        "on-secondary-fixed": "#3e0022",
+                        "secondary": "#ffb0cd",
+                        "tertiary-container": "#00885d",
+                        "on-surface-variant": "#c7c4d7",
+                        "error-container": "#93000a",
+                        "secondary-container": "#aa0266",
+                        "outline-variant": "#464554",
+                        "surface-container": "#102034",
+                        "inverse-on-surface": "#213145",
+                        "primary": "#c0c1ff",
+                        "error": "#ffb4ab",
+                        "on-surface": "#d3e4fe",
+                        "surface-container-highest": "#26364a",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "secondary-fixed-dim": "#ffb0cd",
+                        "on-secondary": "#640039",
+                        "primary-fixed": "#e1e0ff",
+                        "tertiary": "#4edea3",
+                        "outline": "#908fa0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "2rem",
+                        "md": "1rem",
+                        "2xl": "3rem",
+                        "xs": "0.25rem",
+                        "sm": "0.5rem",
+                        "gutter": "1.5rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "code": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "code": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Firmeza</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+<body class="bg-background text-on-surface font-body-md kinetic-gradient min-h-screen flex flex-col">
+
+<!-- blobs de fondo -->
+<div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="animated-blob absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-primary/20"></div>
+    <div class="animated-blob absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/10"
+         style="animation-delay: -5s;"></div>
+    <div class="animated-blob absolute top-[40%] left-[60%] w-[300px] h-[300px] rounded-full bg-tertiary/10"
+         style="animation-delay: -10s;"></div>
+</div>
+
+<!-- contenido principal -->
+<div class="relative z-10 flex-1 flex items-center justify-center w-full px-lg py-[100px]">
+    <div class="w-full max-w-6xl flex flex-col md:flex-row items-stretch gap-xl">
+        <main role="main" class="flex flex-col md:flex-row items-stretch gap-xl w-full">
             @RenderBody()
         </main>
     </div>
+</div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Firmeza - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

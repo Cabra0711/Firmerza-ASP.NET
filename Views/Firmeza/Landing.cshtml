@@ -1,0 +1,349 @@
+<header class="fixed top-0 w-full z-50 bg-surface/60 dark:bg-surface/60 backdrop-blur-xl shadow-sm">
+    <div class="flex justify-between items-center px-lg h-16 w-full max-w-[1440px] mx-auto">
+        <!-- Brand -->
+        <div class="flex items-center gap-md">
+            <span class="font-headline-md text-headline-md font-bold text-primary">FIRMEZA</span>
+        </div>
+        <!-- Search Bar (on_left as per JSON) -->
+        <div class="flex-1 max-w-md mx-xl hidden md:flex items-center">
+            <div class="relative w-full group">
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                <input
+                    class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary text-body-md transition-all"
+                    placeholder="Search premium inventory..." type="text"/>
+            </div>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-lg font-label-md text-label-md">
+            <a class="text-primary border-b-2 border-primary pb-1" href="#">Shop</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Categories</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Deals</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Orders</a>
+        </nav>
+        <!-- Actions -->
+        <div class="flex items-center gap-md ml-lg">
+            <button
+                class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all scale-95 duration-200">
+                dark_mode
+            </button>
+            <button
+                class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all scale-95 duration-200">
+                account_circle
+            </button>
+            <button
+                class="flex items-center gap-xs bg-primary text-on-primary px-md py-sm rounded-lg font-label-md hover:shadow-[0_0_15px_rgba(192,193,255,0.4)] transition-all">
+                <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                <span>Cart</span>
+            </button>
+        </div>
+    </div>
+</header>
+<main class="pt-24 pb-xl px-container-margin max-w-[1440px] mx-auto space-y-2xl">
+    <!-- Hero Banner Section -->
+    <section class="relative w-full h-[500px] rounded-2xl overflow-hidden glass-panel group">
+        <div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10"></div>
+        <div class="absolute inset-0 z-0">
+            <img alt="Future Technology Hero"
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                 data-alt="A cinematic, high-resolution render of futuristic tech hardware glowing with Electric Indigo and Vibrant Pink neon lights in a dark, minimalist laboratory. The atmosphere is professional and energetic, featuring clean lines and high-end materials like brushed aluminum and dark tempered glass. The lighting is low-key with sharp atmospheric highlights that emphasize the precision and transparency of the FIRMEZA brand identity."
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpZwRdBlVJoRvnD4_spv-s-7kHNYXUQ0ajcnCqsUQXZfelq-FHrSlXcM06QAt18JbpvvoFP92EZr-oKbWpUlC__So2eCxx8ATpDLHZAC3XUZLzgEoq_tueYF0wjSnjKVJQKodllfk6hwPHedt1lWTJACuz8_UPLNf2aLuq50N0dfK9HwLoo3Yi-xHbSFifklsc9i1a3F3WR-oAMZd7f5iHPlzvLYf1CJhxHiYysID5cuPPgyObT_ofzFq4dMaPAwRQtKiWDW_5klw"/>
+        </div>
+        <div class="relative z-20 h-full flex flex-col justify-center px-2xl max-w-2xl space-y-lg">
+            <div class="space-y-xs">
+                <span class="text-primary font-label-md uppercase tracking-widest">Premium Collection 2024</span>
+                <h1 class="font-display-lg text-display-lg text-on-background">Streamline Your Flow with Precision.</h1>
+            </div>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                Discover professional-grade inventory units engineered for high-performance operations and
+                administrative excellence.
+            </p>
+            <div class="flex gap-md">
+                <button
+                    class="bg-primary text-on-primary px-xl py-md rounded-lg font-headline-md kinetic-hover shadow-lg">
+                    Shop Now
+                </button>
+                <button
+                    class="border border-secondary text-secondary px-xl py-md rounded-lg font-headline-md backdrop-blur-md kinetic-hover">
+                    Explore
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Category Horizontal Scroll -->
+    <section class="space-y-md">
+        <div class="flex justify-between items-end">
+            <h2 class="font-headline-lg text-headline-lg text-on-background">Top Categories</h2>
+            <button class="text-primary font-label-md hover:underline flex items-center gap-xs">View All <span
+                    class="material-symbols-outlined text-[16px]">arrow_forward</span></button>
+        </div>
+        <div class="flex gap-lg overflow-x-auto pb-md hide-scrollbar">
+            <!-- Categories -->
+            <div
+                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[32px]">laptop_mac</span>
+                </div>
+                <span class="font-label-md text-on-surface">Computing</span>
+            </div>
+            <div
+                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+                    <span class="material-symbols-outlined text-[32px]">memory</span>
+                </div>
+                <span class="font-label-md text-on-surface">Hardware</span>
+            </div>
+            <div
+                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer border-primary/40 bg-primary-container/5">
+                <div
+                    class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+                    <span class="material-symbols-outlined text-[32px]">sensors</span>
+                </div>
+                <span class="font-label-md text-primary font-bold">Smart Sensors</span>
+            </div>
+            <div
+                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+                    <span class="material-symbols-outlined text-[32px]">storage</span>
+                </div>
+                <span class="font-label-md text-on-surface">Data Hubs</span>
+            </div>
+            <div
+                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center text-outline">
+                    <span class="material-symbols-outlined text-[32px]">router</span>
+                </div>
+                <span class="font-label-md text-on-surface">Networking</span>
+            </div>
+            <div
+                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center text-outline">
+                    <span class="material-symbols-outlined text-[32px]">power</span>
+                </div>
+                <span class="font-label-md text-on-surface">Power</span>
+            </div>
+        </div>
+    </section>
+    <!-- Trending Products Grid -->
+    <section class="space-y-lg">
+        <div class="flex justify-between items-center">
+            <div class="space-y-xs">
+                <h2 class="font-headline-lg text-headline-lg text-on-background">Trending Products</h2>
+                <p class="text-on-surface-variant font-body-md">Most requested inventory this week.</p>
+            </div>
+            <div class="flex gap-sm">
+                <button class="p-sm rounded-full glass-panel hover:bg-primary-container/20 transition-all"><span
+                        class="material-symbols-outlined">filter_list</span></button>
+                <button class="p-sm rounded-full glass-panel hover:bg-primary-container/20 transition-all"><span
+                        class="material-symbols-outlined">sort</span></button>
+            </div>
+        </div>
+        <!-- Bento-style Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl">
+            <!-- Product Card 1 -->
+            <div class="glass-panel rounded-xl overflow-hidden group kinetic-hover flex flex-col">
+                <div class="h-64 relative overflow-hidden bg-surface-container-low">
+                    <img alt="Core Processor 9"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         data-alt="A detailed studio product shot of a high-end computer processor chip with glowing neon etchings. The lighting is dramatic and moody, using the FIRMEZA primary indigo and secondary pink colors to highlight the technical details of the hardware. The background is a dark, reflective surface that creates a high-end, premium technology aesthetic suitable for an elite inventory management platform."
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdjGa-FfgfHm1l9J9I7F0yrhSMpPW0mkjinnoQD8maWw1EVLxsyqGWtzzo4sZ9v1-tFGgtXsqPrl10JPds4heU7TodXwkYg1eaSCb9aMOgQ5K665hyBzj_gmJe3iQNE4EcBHPE0at2w4vHX8aFxO2PbDkMsgCPPDrlJhWCiw4StyNJTawV1oGKrzFmpRoz3JTqzBEto5b2gjNsaQoXRqapmHDA1C1aBB_dQOktRDC0oCKd7vt79Q9cqqMaYku1ysiYE9jeOxPgM0o"/>
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="bg-tertiary-container/20 text-tertiary px-sm py-xs rounded-full font-label-md text-[12px] border border-tertiary/30 backdrop-blur-md">IN STOCK</span>
+                    </div>
+                    <button
+                        class="absolute bottom-4 right-4 p-sm bg-primary text-on-primary rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-lg space-y-md flex-1 flex flex-col">
+                    <div class="space-y-xs">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-headline-md text-on-background">Core Stream-X9</h3>
+                            <div class="flex items-center gap-xs text-secondary">
+                                <span class="material-symbols-outlined text-[16px]"
+                                      style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="font-label-md">4.9</span>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant font-body-md line-clamp-2">Next-generation multi-threaded
+                            processing unit with integrated glass-cooled heat pipes.</p>
+                    </div>
+                    <div class="mt-auto pt-md flex items-center justify-between">
+                        <span class="text-headline-md font-bold text-primary">$899.00</span>
+                        <button
+                            class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-xs font-label-md">
+                            Details <span class="material-symbols-outlined text-[18px]">open_in_new</span></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 2 -->
+            <div class="glass-panel rounded-xl overflow-hidden group kinetic-hover flex flex-col">
+                <div class="h-64 relative overflow-hidden bg-surface-container-low">
+                    <img alt="Neural Link Router"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         data-alt="A professional product render of a sleek, black futuristic internet router with multiple antennas glowing with a soft Electric Indigo pulse. The device sits on a dark, textured surface under cool-toned, high-contrast lighting that emphasizes its premium build quality and modern design. The overall mood is high-performance, precise, and transparent, aligning with the FIRMEZA brand identity."
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkPy2mTwZh-hueYoSKCihig_PHrJPLk0knhr_zBY0IyK2gjvp4K7nWPXT6jeT0R_TLkYDNbgkCa5fVpcLZ1PW-4JW8M9elYVhB3UlsASNciHLq1aqyiCkSGejzkqRxKzrRfEID83_ZUs3eNJmWCv3A2yfzZbbu7Ruvr42gjbT666CyGm_8Wl2W-TJ3C_yOUShR8zH-3vvDbU01XeDKeflL2TIYHrfrRwdXrjjoj5y3gALLbZD-TOg0yb_imkHfv348g9bmaDJ_xSE"/>
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="bg-secondary-container/20 text-secondary px-sm py-xs rounded-full font-label-md text-[12px] border border-secondary/30 backdrop-blur-md">LIMITED</span>
+                    </div>
+                    <button
+                        class="absolute bottom-4 right-4 p-sm bg-primary text-on-primary rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-lg space-y-md flex-1 flex flex-col">
+                    <div class="space-y-xs">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-headline-md text-on-background">Neural Hub G2</h3>
+                            <div class="flex items-center gap-xs text-secondary">
+                                <span class="material-symbols-outlined text-[16px]"
+                                      style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="font-label-md">4.7</span>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant font-body-md line-clamp-2">Enterprise-grade mesh routing
+                            system with zero-latency handovers.</p>
+                    </div>
+                    <div class="mt-auto pt-md flex items-center justify-between">
+                        <span class="text-headline-md font-bold text-primary">$449.00</span>
+                        <button
+                            class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-xs font-label-md">
+                            Details <span class="material-symbols-outlined text-[18px]">open_in_new</span></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 3 -->
+            <div class="glass-panel rounded-xl overflow-hidden group kinetic-hover flex flex-col">
+                <div class="h-64 relative overflow-hidden bg-surface-container-low">
+                    <img alt="SSD Drive Ultra"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         data-alt="A macro photography shot of a sleek NVMe SSD drive with a customized FIRMEZA heat sink. The heat sink features translucent indigo elements that reveal internal hardware components under a soft, diffuse light. The aesthetic is clean, technical, and high-end, utilizing a palette of deep navy, silver, and vibrant indigo to convey speed and reliability in a professional dark-mode UI."
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfLRVBw7crzA7lPvTtbiEpP8Ogct8BsKYcXKSKlxS0fV7Sh--TPmnwbbEvIZxUpZVDtJ3_jp2_dkCl9eO4_oNN9rrVpFSfmoC3A8x_C_fIpKgQmYpxq7b4TZ6SEL13tEggPvyvsNh4kanvs7hWjMwuc3QEIi4KFilFOqdzAhaglHp_R7_z_j5RsTFyxTrsVcxgycxkxh4ia66whS4oJRJ23YCFlg2Zfu-YbbeBqIqprkG8epbvg2jkKERH8W6faSGuo5NlU8fQVv8"/>
+                    <button
+                        class="absolute bottom-4 right-4 p-sm bg-primary text-on-primary rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-lg space-y-md flex-1 flex flex-col">
+                    <div class="space-y-xs">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-headline-md text-on-background">Vault 4TB Pro</h3>
+                            <div class="flex items-center gap-xs text-secondary">
+                                <span class="material-symbols-outlined text-[16px]"
+                                      style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="font-label-md">5.0</span>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant font-body-md line-clamp-2">PCIe 5.0 solid state storage with
+                            unprecedented 12GB/s read speeds.</p>
+                    </div>
+                    <div class="mt-auto pt-md flex items-center justify-between">
+                        <span class="text-headline-md font-bold text-primary">$599.00</span>
+                        <button
+                            class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-xs font-label-md">
+                            Details <span class="material-symbols-outlined text-[18px]">open_in_new</span></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 4 -->
+            <div class="glass-panel rounded-xl overflow-hidden group kinetic-hover flex flex-col">
+                <div class="h-64 relative overflow-hidden bg-surface-container-low">
+                    <img alt="OLED Diagnostic Display"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         data-alt="An elegant, ultra-slim OLED monitoring panel mounted on a floating arm in a modern workspace. The display shows complex stock analytics and inventory metrics in a glassmorphic interface that matches the FIRMEZA brand. The lighting is cool-toned with subtle ambient indigo glows that illuminate the dark, professional environment, emphasizing precision and cutting-edge administrative utility."
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_cxZ3kd52DSSYy016dwaqASmbz-0NwFzaEF9Ji0EUj5GJyZWPZEjb5L-0TXDS4F87xetXoyT3YDqWDRhSX0ui2xrXoXHh8kMWugn1Ld0HhfjWYByP54rdaBS2VGQqhumUOFqkzMFkyOOwLj7JiEXPZgz9QCR9alG0Gc-Ok5-VGkJgXq8ugHLKX2uIE6vxCVJxJ6UXAbLdjAJWRtxucehYGz5ezPoOyvM5gvCQFsABu3h8MfuDtIVr4j5Sb1Qjy0Zq64lTA8X-vvU"/>
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="bg-error-container/20 text-error px-sm py-xs rounded-full font-label-md text-[12px] border border-error/30 backdrop-blur-md">OUT OF STOCK</span>
+                    </div>
+                </div>
+                <div class="p-lg space-y-md flex-1 flex flex-col">
+                    <div class="space-y-xs">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-headline-md text-on-background">Insight Panel V3</h3>
+                            <div class="flex items-center gap-xs text-secondary">
+                                <span class="material-symbols-outlined text-[16px]"
+                                      style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="font-label-md">4.8</span>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant font-body-md line-clamp-2">Real-time inventory visualization
+                            panel with haptic touch response.</p>
+                    </div>
+                    <div class="mt-auto pt-md flex items-center justify-between">
+                        <span class="text-headline-md font-bold text-primary">$1,299.00</span>
+                        <button
+                            class="text-on-surface-variant cursor-not-allowed flex items-center gap-xs font-label-md">
+                            Notify Me <span class="material-symbols-outlined text-[18px]">notifications</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Dynamic Promo Banner -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-lg h-[300px]">
+        <div class="md:col-span-2 relative rounded-2xl overflow-hidden glass-panel group kinetic-hover">
+            <div class="absolute inset-0 bg-gradient-to-r from-secondary-container/40 to-transparent z-10"></div>
+            <div class="absolute inset-0 z-0">
+                <img alt="Flash Deal"
+                     class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                     data-alt="An energetic and transparent image of a high-speed circuit board with light energy flowing through its paths. The color palette is dominated by Vibrant Pink and Electric Indigo against a deep black background. The style is modern minimalism with a kinetic energy that suggests rapid data flow and inventory efficiency, perfectly aligning with the Firmeza brand's high-performance inventory management promise."
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKjzBsxENhjD61y7rNuq3wAr2Ci9eLqYMVTufdUkk9OWso_ucV3acQ8X1WgK0ApCJHB7b66clTsMCD_F_mDO4v10NgtlaE8VrWlaMr_jz5eZ_h5ClpYJfJHBB9U9kvvGnYUSKlXOyWup7wWbimg64xjm2W23W3G26E1-SYfxY8HfQL8J8kd_Zgbgaz60GA7pg7Cu8GEcDr7MfVCrVf5rX98_813c3NZ7UKwa9fXH1ORtbuJZtvLIJ64b0XCciZ722rQ_gNkSkHGUM"/>
+            </div>
+            <div class="relative z-20 h-full p-2xl flex flex-col justify-center space-y-md">
+                <h2 class="font-headline-lg text-headline-lg text-white">Inventory Clearout</h2>
+                <p class="text-white/80 font-body-md max-w-sm">Save up to 45% on last-gen diagnostic hardware and legacy
+                    sensor kits.</p>
+                <button class="w-fit bg-secondary text-on-secondary px-lg py-sm rounded-lg font-label-md kinetic-hover">
+                    Claim Deals
+                </button>
+            </div>
+        </div>
+        <div
+            class="relative rounded-2xl overflow-hidden glass-panel p-2xl flex flex-col justify-center items-center text-center space-y-md border-primary/30 kinetic-hover">
+            <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-primary mb-md">
+                <span class="material-symbols-outlined text-[32px]">workspace_premium</span>
+            </div>
+            <h3 class="font-headline-md text-on-background">StockStream Gold</h3>
+            <p class="text-on-surface-variant font-body-md">Get 24h early access to all restocking events and exclusive
+                SKU drops.</p>
+            <button
+                class="text-primary font-label-md border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-all">
+                Join Membership
+            </button>
+        </div>
+    </section>
+</main>
+<script>
+    // Micro-interactions for glass panels
+    document.querySelectorAll('.glass-panel').forEach(panel => {
+        panel.addEventListener('mousemove', (e) => {
+            const rect = panel.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            panel.style.setProperty('--mouse-x', `${x}px`);
+            panel.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
+    // Theme Toggle Logic
+    const themeBtn = document.querySelector('header button.material-symbols-outlined');
+    themeBtn.addEventListener('click', () => {
+        const html = document.documentElement;
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            themeBtn.innerText = 'light_mode';
+        } else {
+            html.classList.add('dark');
+            themeBtn.innerText = 'dark_mode';
+        }
+    });
+        
+</script>

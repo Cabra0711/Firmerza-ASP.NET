@@ -1,3 +1,4 @@
+using Firmeza.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Firmeza.Data;
@@ -8,4 +9,7 @@ public class ApplicationDbContext : DbContext
     {
         
     }
+
+    public DbSet<Customer> Customers { get; set; }
+    DbSet<Product> Products { get; set; }
 }
