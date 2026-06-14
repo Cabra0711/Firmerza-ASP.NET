@@ -1,5 +1,6 @@
 using Firmeza.Models;
 using Firmeza.Response;
+using Microsoft.AspNetCore.Identity.Data;
 
 namespace Firmeza.Services.Interfaces;
 

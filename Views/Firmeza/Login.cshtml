@@ -1,96 +1,137 @@
-<section class="hidden md:flex flex-1 flex-col justify-center space-y-xl">
-    <header>
-        <h1 class="font-headline-lg text-headline-lg text-primary flex items-center gap-sm">
-            <span class="material-symbols-outlined text-[40px]" data-icon="inventory_2"></span>
-            FIRMEZA
-        </h1>
-        <p class="font-body-lg text-body-lg text-on-surface-variant mt-sm max-w-md">
-            The high-performance inventory management system for precise real-time logistics and warehouse scaling.
-        </p>
-    </header>
-    <div class="grid grid-cols-2 gap-md">
-        <div class="glass-panel p-md rounded-xl">
-            <span class="material-symbols-outlined text-tertiary text-headline-md" data-icon="monitoring"></span>
-            <h3 class="font-label-md text-label-md text-on-surface mt-xs">Real-time Analytics</h3>
-            <p class="text-xs text-on-surface-variant mt-xs opacity-70">Monitor throughput and stock levels with sub-second latency.</p>
-        </div>
-        <div class="glass-panel p-md rounded-xl">
-            <span class="material-symbols-outlined text-secondary text-headline-md" data-icon="hub"></span>
-            <h3 class="font-label-md text-label-md text-on-surface mt-xs">Unified Node Sync</h3>
-            <p class="text-xs text-on-surface-variant mt-xs opacity-70">Connect all warehouse locations into a single, kinetic flow.</p>
-        </div>
-    </div>
-    <div class="relative rounded-xl overflow-hidden glass-panel h-48 group">
-        <img alt="Warehouse Logistics"
-             class="w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 transition-transform duration-700"
-             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDrvFMZ50ZVub2QrDc1THzxpK630OFWZg9nJL-zodmbb00NlBDDX7q7XerAPLyhcjbAsuqt5yV-NBON7mq4QgGsC8_-vaMLmW985KOAyKz2JD3LthxROfU1Ufl8TsFkaFq3O0x6qq7QlDRwOEbgW3Il9rGWhik9P5F1cAGaBqL5toNZYXoDGcJeId3TU8Zmwg4s0DKpcbCGAqWyBbENYvIsbzHNgi2x7jzmuCiYNxH4SDpWC_FFhJ41pfjNEbwYfd1JMLMxr84b_s"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent flex items-end p-md">
-            <p class="text-sm font-label-md text-primary">Trusted by 2,000+ Enterprises globally.</p>
-        </div>
-    </div>
-</section>
-
-<!-- Right Side: Login/Register Form -->
 <section class="flex-1 flex items-center justify-center">
     <div class="glass-panel w-full max-w-md p-xl rounded-[2rem] shadow-2xl relative overflow-hidden">
-        <!-- Toggle Container -->
+
+        <!-- Tab Toggle -->
         <div class="relative bg-surface-container-low rounded-full p-1 mb-xl flex h-12">
             <div class="absolute h-10 bg-primary/20 border border-primary/30 rounded-full tab-transition w-1/2 left-1 top-1"
                  id="tab-indicator"></div>
             <button class="relative flex-1 z-10 font-label-md text-label-md flex items-center justify-center gap-xs text-on-surface transition-colors"
-                    onclick="toggleTab('login')">
+                    onclick="switchTab('login')" id="btn-login">
                 <span class="material-symbols-outlined text-sm" data-icon="admin_panel_settings"></span>
-                Admin Access
+                Log In
             </button>
             <button class="relative flex-1 z-10 font-label-md text-label-md flex items-center justify-center gap-xs text-on-surface-variant hover:text-on-surface transition-colors"
-                    onclick="toggleTab('register')">
+                    onclick="switchTab('register')" id="btn-register">
                 <span class="material-symbols-outlined text-sm" data-icon="person_add"></span>
-                Customer Sign-up
+                Sign up
             </button>
         </div>
 
-        <!-- Form Heading -->
-        <div class="mb-lg">
-            <h2 class="font-headline-md text-headline-md text-on-surface" id="form-title">Welcome back</h2>
-            <p class="font-body-md text-body-md text-on-surface-variant" id="form-subtitle">Enter your credentials to access the workspace.</p>
+        <!-- LOGIN PANEL -->
+        <div id="panel-login" class="form-panel">
+            <div class="mb-lg">
+                <h2 class="font-headline-md text-headline-md text-on-surface">Welcome back</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Enter your credentials to access the workspace.</p>
+            </div>
+
+            <form method="post" asp-action="Login" class="space-y-lg">
+                <div class="space-y-md">
+                    <div class="relative group">
+                        <input class="peer w-full bg-surface-container/50 border border-outline-variant rounded-xl px-md py-4 text-on-surface placeholder-transparent focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                               id="username" name="username" placeholder="Username" type="text" required/>
+                        <label class="absolute left-md top-1 text-xs text-primary font-label-md transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
+                               for="username">username</label>
+                    </div>
+                    <div class="relative group">
+                        <input class="peer w-full bg-surface-container/50 border border-outline-variant rounded-xl px-md py-4 text-on-surface placeholder-transparent focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                               id="login-password" name="password" placeholder="Password" type="password" required/>
+                        <label class="absolute left-md top-1 text-xs text-primary font-label-md transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
+                               for="login-password">password</label>
+                        <button class="absolute right-md top-4 text-on-surface-variant hover:text-primary" type="button"
+                                onclick="togglePass('login-password', this)">
+                            <span class="material-symbols-outlined text-xl" data-icon="visibility"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end text-xs">
+                    <a class="text-primary hover:underline transition-all" href="#">Forgot password?</a>
+                </div>
+
+                <button type="submit"
+                        class="w-full bg-primary text-on-primary h-14 rounded-xl font-label-md text-label-md flex items-center justify-center gap-sm glow-indigo hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                    Enter Workspace
+                    <span class="material-symbols-outlined" data-icon="arrow_forward"></span>
+                </button>
+            </form>
         </div>
 
-        <form class="space-y-lg" onsubmit="event.preventDefault();">
-            <!-- Input Fields -->
-            <div class="space-y-md">
-                <div class="relative group">
-                    <input class="peer w-full bg-surface-container/50 border border-outline-variant rounded-xl px-md py-4 text-on-surface placeholder-transparent focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-                           id="email" placeholder="Email" type="email"/>
-                    <label class="absolute left-md top-1 text-xs text-primary font-label-md transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
-                           for="email">Workspace Email</label>
+        <!-- REGISTER PANEL -->
+        <div id="panel-register" class="form-panel hidden">
+            <div class="mb-lg">
+                <h2 class="font-headline-md text-headline-md text-on-surface">Join the network</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Create your secure account to start scaling.</p>
+            </div>
+            
+            @if (ViewBag.ErrorValidation != null)
+            {
+                <div class="bg-error/10 border border-error/20 text-error p-md rounded-xl text-xs space-y-1">
+                    <p class="font-bold">Por favor corrige los siguientes campos:</p>
+                    <p>@Html.Raw(ViewBag.ErrorValidation)</p>
                 </div>
+            }
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="bg-error/10 border border-error/20 text-error p-md rounded-xl text-xs font-medium">
+                    @ViewBag.Error
+                </div>
+            }
+
+            @if (ViewBag.Success != null)
+            {
+                <div class="bg-success/10 border border-success/20 text-success p-md rounded-xl text-xs font-medium">
+                    @ViewBag.Success
+                </div>
+            }
+            <form method="post" asp-action="Register" class="space-y-md">
+                
                 <div class="relative group">
                     <input class="peer w-full bg-surface-container/50 border border-outline-variant rounded-xl px-md py-4 text-on-surface placeholder-transparent focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-                           id="password" placeholder="Password" type="password"/>
+                           id="reg-username" name="Username" placeholder="Username" type="text" required/>
                     <label class="absolute left-md top-1 text-xs text-primary font-label-md transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
-                           for="password">Access Key</label>
-                    <button class="absolute right-md top-4 text-on-surface-variant hover:text-primary" type="button">
+                           for="reg-username">Username</label>
+                </div>
+
+                <div class="relative group">
+                    <input class="peer w-full bg-surface-container/50 border border-outline-variant rounded-xl px-md py-4 text-on-surface placeholder-transparent focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                           id="document" name="Document" placeholder="Document" type="text" required/>
+                    <label class="absolute left-md top-1 text-xs text-primary font-label-md transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
+                           for="document">Document number</label>
+                </div>
+
+                <div class="relative group">
+                    <input class="peer w-full bg-surface-container/50 border border-outline-variant rounded-xl px-md py-4 text-on-surface placeholder-transparent focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                           id="phone" name="Email" placeholder="Email" type="email" required/>
+                    <label class="absolute left-md top-1 text-xs text-primary font-label-md transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
+                           for="phone">Email</label>
+                </div>
+
+                <div class="relative group">
+                    <input class="peer w-full bg-surface-container/50 border border-outline-variant rounded-xl px-md py-4 text-on-surface placeholder-transparent focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                           id="reg-password" name="Password" placeholder="Password" type="password" required/>
+                    <label class="absolute left-md top-1 text-xs text-primary font-label-md transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
+                           for="reg-password">Password</label>
+                    <button class="absolute right-md top-4 text-on-surface-variant hover:text-primary" type="button"
+                            onclick="togglePass('reg-password', this)">
                         <span class="material-symbols-outlined text-xl" data-icon="visibility"></span>
                     </button>
                 </div>
-            </div>
 
-            <div class="flex items-center justify-between text-xs">
-                <label class="flex items-center gap-xs cursor-pointer group">
-                    <div class="w-4 h-4 rounded border border-outline group-hover:border-primary transition-colors flex items-center justify-center bg-surface-container">
-                        <div class="w-2 h-2 bg-primary rounded-sm opacity-0 peer-checked:opacity-100 transition-opacity"></div>
-                    </div>
-                    <span class="text-on-surface-variant group-hover:text-on-surface transition-colors">Remember device</span>
-                </label>
-                <a class="text-primary hover:underline transition-all" href="#">Forgot Key?</a>
-            </div>
+                <div class="relative group">
+                    <input class="peer w-full bg-surface-container/50 border border-outline-variant rounded-xl px-md py-4 text-on-surface placeholder-transparent focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                           id="confirm-password" name="ConfirmPassword" placeholder="Confirm" type="password" required/>
+                    <label class="absolute left-md top-1 text-xs text-primary font-label-md transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
+                           for="confirm-password">Confirm password</label>
+                </div>
 
-            <!-- Primary Action -->
-            <button class="w-full bg-primary text-on-primary h-14 rounded-xl font-label-md text-label-md flex items-center justify-center gap-sm glow-indigo hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
-                Enter Workspace
-                <span class="material-symbols-outlined" data-icon="arrow_forward"></span>
-            </button>
-        </form>
+                <button type="submit"
+                        class="w-full bg-primary text-on-primary h-14 rounded-xl font-label-md text-label-md flex items-center justify-center gap-sm glow-indigo hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                    Create Account
+                    <span class="material-symbols-outlined" data-icon="arrow_forward"></span>
+                </button>
+            </form>
+        </div>
 
         <footer class="mt-xl text-center space-y-md">
             <p class="text-xs text-on-surface-variant">
@@ -102,51 +143,44 @@
     </div>
 </section>
 
-
-<div class="fixed bottom-0 w-full py-xl bg-surface-container-lowest/10 backdrop-blur-sm border-t border-outline-variant flex flex-col items-center justify-center space-y-md z-20">
-    <div class="flex space-x-lg">
-        <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
-        <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
-        <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Help Center</a>
-        <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">API Docs</a>
-    </div>
-    <p class="font-body-md text-body-md text-on-surface-variant opacity-50">© 2024 StockStream Inventory Systems</p>
-</div>
-
 <script>
-    function toggleTab(mode) {
+    function switchTab(tab) {
         const indicator = document.getElementById('tab-indicator');
-        const title = document.getElementById('form-title');
-        const subtitle = document.getElementById('form-subtitle');
-        const buttons = document.querySelectorAll('button[onclick^="toggleTab"]');
+        const btnLogin = document.getElementById('btn-login');
+        const btnRegister = document.getElementById('btn-register');
+        const panelLogin = document.getElementById('panel-login');
+        const panelRegister = document.getElementById('panel-register');
 
-        if (mode === 'login') {
+        if (tab === 'login') {
             indicator.style.left = '4px';
-            title.innerText = 'Welcome back';
-            subtitle.innerText = 'Enter your credentials to access the workspace.';
-            buttons[0].classList.add('text-on-surface');
-            buttons[0].classList.remove('text-on-surface-variant');
-            buttons[1].classList.remove('text-on-surface');
-            buttons[1].classList.add('text-on-surface-variant');
+            btnLogin.classList.remove('text-on-surface-variant');
+            btnLogin.classList.add('text-on-surface');
+            btnRegister.classList.remove('text-on-surface');
+            btnRegister.classList.add('text-on-surface-variant');
+            panelLogin.classList.remove('hidden');
+            panelRegister.classList.add('hidden');
         } else {
             indicator.style.left = 'calc(50% - 4px)';
-            title.innerText = 'Join the network';
-            subtitle.innerText = 'Create your secure account to start scaling.';
-            buttons[1].classList.add('text-on-surface');
-            buttons[1].classList.remove('text-on-surface-variant');
-            buttons[0].classList.remove('text-on-surface');
-            buttons[0].classList.add('text-on-surface-variant');
+            btnRegister.classList.remove('text-on-surface-variant');
+            btnRegister.classList.add('text-on-surface');
+            btnLogin.classList.remove('text-on-surface');
+            btnLogin.classList.add('text-on-surface-variant');
+            panelRegister.classList.remove('hidden');
+            panelLogin.classList.add('hidden');
         }
     }
 
-    document.addEventListener('mousemove', (e) => {
-        const blobs = document.querySelectorAll('.animated-blob');
-        const x = (e.clientX / window.innerWidth) - 0.5;
-        const y = (e.clientY / window.innerHeight) - 0.5;
-
-        blobs.forEach((blob, index) => {
-            const speed = (index + 1) * 20;
-            blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-        });
-    });
+    function togglePass(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector('span');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.setAttribute('data-icon', 'visibility_off');
+            icon.textContent = 'visibility_off';
+        } else {
+            input.type = 'password';
+            icon.setAttribute('data-icon', 'visibility');
+            icon.textContent = 'visibility';
+        }
+    }
 </script>

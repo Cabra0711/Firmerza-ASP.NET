@@ -68,7 +68,7 @@ public class LoginService : ILoginService
     public async Task<ServiceResponse<Customer>> Login(string username, string password)
     {
         var response = new ServiceResponse<Customer>();
-        var customerExists = await _context.Customers.SingleOrDefaultAsync(c => c.UserName == username);
+        var customerExists = await _context.Customers.SingleOrDefaultAsync(c => EF.Functions.ILike(c.UserName, username));
         
         if (customerExists == null)
         {
@@ -101,10 +101,11 @@ public class LoginService : ILoginService
             
             var Object = tokenHandler.CreateToken(Data);
             var token = tokenHandler.WriteToken(Object);
-            
-            
+
+            customerExists.Token = token;
             response.Success = true;
-            response.Message = token;
+            response.Message = "Login Exitoso redireccionando...";
+            response.Data = customerExists;
             
         }
         else

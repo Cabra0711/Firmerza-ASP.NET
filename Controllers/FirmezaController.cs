@@ -1,5 +1,10 @@
+using Firmeza.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using Firmeza.Enums;
+using Firmeza.Models;
+
 
 namespace Firmeza.Controllers;
 
@@ -7,11 +12,95 @@ namespace Firmeza.Controllers;
 [Route("firmeza")]
 public class FirmezaController : Controller
 {
+    private readonly ILoginService _loginService;
+    public FirmezaController(ILoginService loginService)
+    {
+        _loginService = loginService;
+    }
+    
     [AllowAnonymous]
     [HttpGet("Login")]
     public IActionResult Login()
     {
         return View();
+    }
+
+    [AllowAnonymous]
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login(string username, string password)
+    {
+        
+        
+        var response = await _loginService.Login(username, password);
+        
+        if (response.Success)
+        {
+            HttpContext.Session.SetString("Username", username);
+            if (!string.IsNullOrEmpty(response.Data.Token))
+            {
+                HttpContext.Session.SetString("JWToken", response.Data.Token);
+            }
+
+            if (response.Data.Role == UserRole.Customer)
+            {
+                return RedirectToAction("Landing", "Firmeza");
+            }
+            else
+            {
+                return RedirectToAction("Admin", "Firmeza");
+            }
+        }
+        ViewBag.Error = response?.Message ?? "Credenciales incorrectas o invalidas intente de nuevo porfavor.";
+        return View();
+    }
+    
+    [AllowAnonymous]
+    [HttpPost("Register")]
+    public async Task<IActionResult> Register(Customer customer)
+    {
+        var validator = new Validators.CustomerValidator();
+        
+        var validationResult = await validator.ValidateAsync(customer);
+        
+        if (!validationResult.IsValid)
+        {
+
+            ViewBag.ErrorValidation = string.Join("<br/>", validationResult.Errors.Select(e => e.ErrorMessage));
+            return View("Login", customer); 
+        }
+        try
+        {
+            var response = await _loginService.CreateCustomer(customer);
+            
+            if (response.Success)
+            {
+                ViewBag.Success = "¡Cuenta creada! Ya podés iniciar sesión.";
+                return View("Login");
+            }
+            
+            ViewBag.Error = response.Message ?? "No se pudo crear el usuario, intente de nuevo.";
+            return View("Login", customer);
+        }
+        catch (Npgsql.PostgresException ex) when (ex.SqlState == "23505") 
+        {
+
+            ViewBag.Error = "El correo electrónico o el nombre de usuario ya se encuentran registrados.";
+            return View("Login", customer);
+        }
+        catch (Exception ex)
+        {
+
+            ViewBag.Error = $" Explotó el sistema: {ex.Message}";
+            return View("Login", customer);
+        }
+    }
+    
+    
+    [HttpGet]
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Remove("JWToken");
+        return RedirectToAction("Login", "Firmeza");
     }
     
     [Authorize] 

@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpContextAccessor();
 
+var connectionString = builder.Configuration.GetConnectionString("PostgresConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString")));
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<CustomerValidator>();
@@ -34,6 +36,14 @@ builder.Services.AddAuthentication(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true; 
+});
 
 var app = builder.Build();
 
@@ -51,9 +61,21 @@ app.UseStaticFiles();
 app.UseStatusCodePagesWithReExecute("/firmeza/Error401");
 
 app.UseRouting();
+app.UseSession();
+
+app.Use(async (context, next) =>
+{
+    var token = context.Session.GetString("JWToken");
+    if (!string.IsNullOrEmpty(token))
+    {
+        context.Request.Headers.Append("Authorization", "Bearer " + token);
+    }
+    await next();
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

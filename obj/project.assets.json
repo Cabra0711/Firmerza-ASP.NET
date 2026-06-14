@@ -3147,25 +3147,24 @@
     ]
   },
   "packageFolders": {
-    "/home/rwadmin/.nuget/packages/": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/rwadmin/Documentos/Firmeza/Firmeza.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Documents\\Firmerza-ASP.NET\\Firmeza.csproj",
       "projectName": "Firmeza",
-      "projectPath": "/home/rwadmin/Documentos/Firmeza/Firmeza.csproj",
-      "packagesPath": "/home/rwadmin/.nuget/packages/",
-      "outputPath": "/home/rwadmin/Documentos/Firmeza/obj/",
+      "projectPath": "C:\\Users\\user\\Documents\\Firmerza-ASP.NET\\Firmeza.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\Documents\\Firmerza-ASP.NET\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/rwadmin/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3184,7 +3183,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net10.0": {
@@ -3252,7 +3251,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.109/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
