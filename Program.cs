@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<CustomerValidator>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var secretKey = builder.Configuration["JwtSettings:SecretKey"];
 builder.Services.AddAuthentication(options =>
@@ -58,7 +59,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseStatusCodePagesWithReExecute("/firmeza/Error401");
+
 
 app.UseRouting();
 app.UseSession();
@@ -80,5 +81,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Firmeza}/{action=Login}/{id?}");
+app.UseStatusCodePagesWithReExecute("/firmeza/Error401");
 
 app.Run();

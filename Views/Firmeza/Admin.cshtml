@@ -10,7 +10,7 @@
 
 <aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low/60 backdrop-blur-md shadow-sm flex flex-col py-md px-sm z-50">
     <div class="mb-xl px-md">
-        <h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">StockStream</h1>
+        <h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Firmeza</h1>
         <p class="text-on-surface-variant font-label-md text-label-md opacity-70">Admin Console</p>
     </div>
     
@@ -203,9 +203,119 @@
     </section>
 </main>
 
-<button class="fixed bottom-xl right-xl w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform z-[100] group">
+<button id="btnOpenModal"
+        class="fixed bottom-xl right-xl w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform z-[100] group">
     <span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform" data-icon="add"></span>
     <div class="absolute right-16 bg-slate-800 px-md py-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-slate-700 text-sm text-white">
         Add New Product
     </div>
 </button>
+
+<div id="productModal" class="fixed inset-0 z-[150] hidden flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4 transition-all duration-300">
+    
+    <div class="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300" id="modalContainer">
+        
+        <div class="p-lg border-b border-slate-800 flex justify-between items-center bg-slate-800/20">
+            <div>
+                <h3 class="text-xl font-bold text-white tracking-tight">Add New Product</h3>
+                <p class="text-xs text-slate-400">Enter the details to register a new item in StockStream</p>
+            </div>
+            <button id="btnCloseModal" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form asp-action="CreateProduct" asp-controller="Firmeza" method="post" class="p-lg space-y-md text-sm text-slate-300">
+            
+            <div class="flex flex-col gap-xs">
+                <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Product Name</label>
+                <input type="text" name="Name" required placeholder="e.g., Vanguard Chrono X" 
+                       class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-md">
+                <div class="flex flex-col gap-xs">
+                    <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">SKU</label>
+                    <input type="text" name="Sku" required placeholder="SS-XX-000" 
+                           class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+                </div>
+                <div class="flex flex-col gap-xs">
+                    <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Category</label>
+                    <select name="Category" class="bg-slate-800 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-300 w-full cursor-pointer">
+                        <option value="Electronics">Electronics</option>
+                        <option value="Hardware">Hardware</option>
+                        <option value="Logistics">Logistics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-md">
+                <div class="flex flex-col gap-xs">
+                    <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Price ($)</label>
+                    <input type="number" step="0.01" name="Price" required placeholder="0.00" 
+                           class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+                </div>
+                <div class="flex flex-col gap-xs">
+                    <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Initial Stock</label>
+                    <input type="number" name="Quantity" required placeholder="0" 
+                           class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-xs">
+                <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Image URL</label>
+                <input type="url" name="ImageUrl" placeholder="https://example.com/image.jpg" 
+                       class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+            </div>
+
+            <div class="flex justify-end gap-sm border-t border-slate-800 pt-md mt-lg">
+                <button type="button" id="btnCancelModal" class="px-lg py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-medium rounded-xl transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="px-lg py-2 bg-primary text-on-primary font-bold rounded-xl hover:brightness-110 shadow-lg shadow-primary/20 transition-all">
+                    Save Product
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("productModal");
+        const container = document.getElementById("modalContainer");
+        const btnOpen = document.getElementById("btnOpenModal");
+        const btnClose = document.getElementById("btnCloseModal");
+        const btnCancel = document.getElementById("btnCancelModal");
+
+        function openModal() {
+            modal.classList.remove("hidden");
+           
+            setTimeout(() => {
+                modal.classList.add("opacity-100");
+                container.classList.remove("scale-95", "opacity-0");
+                container.classList.add("scale-100", "opacity-100");
+            }, 10);
+        }
+
+        function closeModal() {
+            container.classList.remove("scale-100", "opacity-100");
+            container.classList.add("scale-95", "opacity-0");
+            setTimeout(() => {
+                modal.classList.add("hidden");
+            }, 300); 
+        }
+
+        // Eventos
+        btnOpen.addEventListener("click", openModal);
+        btnClose.addEventListener("click", closeModal);
+        btnCancel.addEventListener("click", closeModal);
+
+        
+        modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    });
+</script>
