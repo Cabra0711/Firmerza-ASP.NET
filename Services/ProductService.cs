@@ -27,7 +27,7 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<ServiceResponse<Product>> GetProduct(int id)
+    public async Task<ServiceResponse<Product>> GetProduct(Guid id)
     {
         var response = new ServiceResponse<Product>();
         var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
@@ -71,7 +71,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<ServiceResponse<Product>> UpdateProduct(int id, Product product)
+    public async Task<ServiceResponse<Product>> UpdateProduct(Guid id, Product product)
     {
         var response = new ServiceResponse<Product>();
         var productExists = await _context.Products.FindAsync(id);
@@ -100,7 +100,7 @@ public class ProductService : IProductService
         
     }
 
-    public async Task<ServiceResponse<Product>> DeleteProduct(int id)
+    public async Task<ServiceResponse<Product>> DeleteProduct(Guid id)
     {
         var response = new ServiceResponse<Product>();
         var productExists = await _context.Products.FindAsync(id);

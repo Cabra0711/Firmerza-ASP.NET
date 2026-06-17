@@ -1,10 +1,12 @@
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
+@model Firmeza.Response.ServiceResponse<IEnumerable<Product>>
+
 
 @{
     ViewData["Title"] = "Dashboard Admin";
     
-    // Capturamos el nombre real del administrador desde la sesión
+
     var nombreAdmin = HttpContextAccessor.HttpContext?.Session.GetString("Username") ?? "Admin";
 }
 
@@ -74,7 +76,7 @@
                     <span class="text-tertiary font-label-md text-label-md">+12% vs LY</span>
                 </div>
                 <h3 class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider text-slate-400 text-xs">Total Products</h3>
-                <p class="font-display-lg text-display-lg text-primary mt-xs font-bold text-3xl">12,842</p>
+                <p class="font-display-lg text-display-lg text-primary mt-xs font-bold text-3xl">@Model.Data.Count()</p>
             </div>
             <div class="absolute bottom-0 right-0 opacity-10 group-hover:scale-110 transition-transform duration-500">
                 <span class="material-symbols-outlined text-9xl translate-x-12 translate-y-8" data-icon="layers"></span>
@@ -145,48 +147,30 @@
         </div>
 
         <div class="divide-y divide-slate-800">
-            <div class="grid grid-cols-[auto_1fr_auto_auto_auto_auto] items-center gap-md px-lg py-md hover:bg-white/5 transition-colors group">
-                <img class="w-16 h-16 rounded-lg object-cover flex-shrink-0 bg-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r5N3AVFPjIw4_wkznhAUmmECUeOJ3s4jYOZuSP9qqKoehF8KIsveDs4qdJ8oc_QQ5mF98lfbMYxThiDL_tMQORWkIRK4qbZh-Ri-Cj8vFhW6opxFes-lPmoIU4l_I4xuHk8otj1-lRn7RhBSh_4K506Hd1q0eFCigtASVk3TsyGb3LTC-rrX3SR2Z1UmzBuEo4BcqJpRZVtrO3FC4zfpBoAyD8e2QM3xI5GJsf-SqMuOMs-Ww32Sruivh2_S4VRPO-z-stifabw" alt="Vanguard Chrono"/>
+           @foreach (var product in Model.Data)
+           {
+                <div class="grid grid-cols-[auto_1fr_auto_auto_auto_auto] items-center gap-md px-lg py-md hover:bg-white/5 transition-colors group">
+                <img class="w-16 h-16 rounded-lg object-cover flex-shrink-0 bg-slate-700" src="@product.ImageUrl" alt="product-image"/>
                 <div>
-                    <p class="font-bold text-on-surface text-body-md text-white">Vanguard Chrono</p>
-                    <p class="text-slate-400 font-label-md text-label-md text-xs">SKU: SS-VG-001</p>
+                    <p class="font-bold text-on-surface text-body-md text-white">@product.Name</p>
+                    <p class="text-slate-400 font-label-md text-label-md text-xs">SKU: @product.Sku</p>
                 </div>
                 <div class="w-28 flex justify-center">
-                    <span class="bg-emerald-500/10 text-emerald-400 text-[10px] px-sm py-xs rounded uppercase font-bold border border-emerald-500/20">In Stock</span>
+                    <span class="bg-emerald-500/10 text-emerald-400 text-[10px] px-sm py-xs rounded uppercase font-bold border border-emerald-500/20">@product.Status</span>
                 </div>
                 <div class="w-24 text-right">
-                    <p class="text-primary font-bold">$299.00</p>
+                    <p class="text-primary font-bold">@product.Price/p>
                 </div>
                 <div class="w-28 text-right">
-                    <p class="text-slate-300 text-sm">1,240 units</p>
+                    <p class="text-slate-300 text-sm">@product.Quantity</p>
                 </div>
                 <div class="w-16 flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
                     <button class="p-xs hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="edit"></span></button>
                     <button class="p-xs hover:text-error transition-colors"><span class="material-symbols-outlined text-lg" data-icon="delete"></span></button>
                 </div>
             </div>
-
-            <div class="grid grid-cols-[auto_1fr_auto_auto_auto_auto] items-center gap-md px-lg py-md hover:bg-white/5 transition-colors group">
-                <img class="w-16 h-16 rounded-lg object-cover flex-shrink-0 bg-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBULQxmrwth3S7Ei3dz6qL_54ynpcklS2d42-KFiiXAVeZW1RtCRIm3qxvjah3P1831v763TH_Q35hSBBdkIZXEluIHQW0JlaB2gD3fwwhYneFIbyjfW8aW_mZ7TPIb4h5QG7ziiJEPMDVVZ0E0e6GKQQ-TWDJs2WP8xlMPer6bpVdDXoVDf9TZ5Yi5_lWWmWjJSCRDhed6uqyDAz-lFsFnZxOClkpn8Dy2uQ2gYnFLJhan8ERnQX0PnZF8jx4hFjHh5elJKBmS5i8" alt="Aura H1 Headphones"/>
-                <div>
-                    <p class="font-bold text-on-surface text-body-md text-white">Aura H1 Headphones</p>
-                    <p class="text-slate-400 font-label-md text-label-md text-xs">SKU: SS-AH-092</p>
-                </div>
-                <div class="w-28 flex justify-center">
-                    <span class="bg-error/10 text-error text-[10px] px-sm py-xs rounded uppercase font-bold border border-error/20">Low Stock</span>
-                </div>
-                <div class="w-24 text-right">
-                    <p class="text-primary font-bold">$189.99</p>
-                </div>
-                <div class="w-28 text-right">
-                    <p class="text-error text-sm font-bold">12 units</p>
-                </div>
-                <div class="w-16 flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button class="p-xs hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="edit"></span></button>
-                    <button class="p-xs hover:text-error transition-colors"><span class="material-symbols-outlined text-lg" data-icon="delete"></span></button>
-                </div>
-            </div>
-            
+           }
+           
             </div>
 
         <div class="p-lg border-t border-slate-700 flex justify-between items-center bg-slate-800/10">

@@ -12,9 +12,11 @@ namespace Firmeza.Controllers;
 [Route("firmeza")]
 public class FirmezaController : Controller
 {
+    private readonly IProductService _productService;
     private readonly ILoginService _loginService;
-    public FirmezaController(ILoginService loginService)
+    public FirmezaController(ILoginService loginService,  IProductService productService)
     {
+        _productService = productService;
         _loginService = loginService;
     }
     
@@ -105,10 +107,41 @@ public class FirmezaController : Controller
     
     [Authorize] 
     [HttpGet("Admin")]
-    public IActionResult Admin()
+    public async Task<IActionResult> Admin()
     {
-        return View();
+        var response = await _productService.GetAllProducts();
+        return View(response);
     }
+
+    [Authorize]
+    [HttpPost("Admin/create")]
+    public async Task<IActionResult> CreateProduct(Product product)
+    {
+        product.CreatedAt =  DateTime.UtcNow;
+        product.UpdatedAt = DateTime.UtcNow;
+        await  _productService.CreateProduct(product);
+        return RedirectToAction("Admin", "Firmeza");
+        
+    }
+
+    [Authorize]
+    [HttpPost("Admin/delete/{id}")]
+    public async Task<IActionResult> DeleteProduct(Guid id)
+    {
+        await _productService.DeleteProduct(id);
+        return RedirectToAction("Admin", "Firmeza");
+    }
+
+    [Authorize]
+    [HttpPost("Admin/edit/{id}")]
+    public async Task<IActionResult> UpdateProduct(Guid id ,Product product)
+    {
+        product.Id = id;
+        product.UpdatedAt = DateTime.UtcNow;
+        await _productService.UpdateProduct(product.Id, product);
+        return RedirectToAction("Admin", "Firmeza");
+    }
+    
     
     [Authorize] 
     [HttpGet("Admin-Customer")]
