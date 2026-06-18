@@ -1,6 +1,9 @@
+@model Firmeza.Response.ServiceResponse<IEnumerable<Product>>
+
+@using Firmeza.Enums
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
-@model Firmeza.Response.ServiceResponse<IEnumerable<Product>>
+
 
 
 @{
@@ -89,7 +92,7 @@
                     <span class="text-error font-label-md text-label-md font-bold text-xs">Action Required</span>
                 </div>
                 <h3 class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider text-slate-400 text-xs">Low Stock Alerts</h3>
-                <p class="font-display-lg text-display-lg text-error mt-xs font-bold text-3xl">42</p>
+                <p class="font-display-lg text-display-lg text-error mt-xs font-bold text-3xl">@Model.Data.Count(p => p.Status == ProductStatus.LowStock)</p>
             </div>
             <div class="absolute bottom-0 right-0 opacity-10 group-hover:scale-110 transition-transform duration-500">
                 <span class="material-symbols-outlined text-9xl translate-x-12 translate-y-8" data-icon="emergency"></span>

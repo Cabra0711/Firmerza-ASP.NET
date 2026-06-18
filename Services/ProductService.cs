@@ -19,6 +19,7 @@ public class ProductService : IProductService
         
 
         var products = await _context.Products.ToListAsync();
+        
 
         return new ServiceResponse<IEnumerable<Product>>()
         {

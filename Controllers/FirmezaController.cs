@@ -109,7 +109,9 @@ public class FirmezaController : Controller
     [HttpGet("Admin")]
     public async Task<IActionResult> Admin()
     {
-        var response = await _productService.GetAllProducts();
+        var response = await _productService.GetAllProducts();  
+        var weekStart = DateTime.UtcNow.AddDays(-7);
+        
         return View(response);
     }
 
