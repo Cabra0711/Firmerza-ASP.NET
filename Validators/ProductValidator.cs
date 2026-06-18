@@ -39,7 +39,7 @@ public class ProductValidator : AbstractValidator<Product>
         RuleFor(p => p.Category)
             .NotEmpty().WithMessage("La categoría es obligatoria.")
             
-            .Must(BeAValidCategory).WithMessage("La categoría ingresada no está permitida. Usa: Electrónica, Ropa, Hogar o Deportes.");
+            .IsInEnum().WithMessage("La categoría ingresada no está permitida. Usa: Electrónica, Ropa, Hogar o Deportes.");
     }
     private bool BeAValidCategory(string category)
     {

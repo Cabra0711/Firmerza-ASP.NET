@@ -9,7 +9,8 @@ public class Product : BaseEntity
     public decimal Price { get; set; }
     public string Sku { get; set; } = string.Empty;
     public int Quantity { get; set; }
-    public string Category { get; set; } = string.Empty;
+    public ProductCategory Category { get; set; }
     public string ImageUrl { get; set; } = string.Empty;
     public ProductStatus Status { get; set; }
+    public ICollection<SaleDetail> SaleDetails { get; set; }
 }
