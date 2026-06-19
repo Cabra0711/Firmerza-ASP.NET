@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 
@@ -59,7 +60,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-
+app.UseStatusCodePagesWithReExecute("/firmeza/Error401");
 
 app.UseRouting();
 app.UseSession();
@@ -81,6 +82,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Firmeza}/{action=Login}/{id?}");
-app.UseStatusCodePagesWithReExecute("/firmeza/Error401");
+
+
 
 app.Run();

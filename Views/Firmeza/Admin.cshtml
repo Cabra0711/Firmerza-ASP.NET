@@ -20,21 +20,17 @@
     </div>
     
     <nav class="flex-1 space-y-sm">
-        <a class="flex items-center gap-md p-md rounded-lg text-primary font-bold bg-primary-container/10 border-r-4 border-primary transition-all duration-200 scale-98" href="#">
+        <a class="flex items-center gap-md p-md rounded-lg text-primary font-bold bg-primary-container/10 border-r-4 border-primary transition-all duration-200 scale-98" asp-controller="Firmeza" asp-action="Admin">
             <span class="material-symbols-outlined" data-icon="dashboard"></span>
-            <span class="font-body-md text-body-md">Dashboard</span>
+            <span class="font-body-md text-body-md">Products</span>
         </a>
-        <a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-primary-container/20 transition-all duration-200" href="#">
+        <a  asp-action="Customer" asp-controller="Firmeza" class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-primary-container/20 transition-all duration-200" >
             <span class="material-symbols-outlined" data-icon="inventory_2"></span>
-            <span class="font-body-md text-body-md">Inventory</span>
+            <span class="font-body-md text-body-md">Customers</span>
         </a>
-        <a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-primary-container/20 transition-all duration-200" href="#">
+        <a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-primary-container/20 transition-all duration-200" asp-action="Sells" asp-controller="Firmeza">
             <span class="material-symbols-outlined" data-icon="monitoring"></span>
-            <span class="font-body-md text-body-md">Analytics</span>
-        </a>
-        <a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-primary-container/20 transition-all duration-200" href="#">
-            <span class="material-symbols-outlined" data-icon="shopping_cart"></span>
-            <span class="font-body-md text-body-md">Orders</span>
+            <span class="font-body-md text-body-md">Sells</span>
         </a>
         <a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-primary-container/20 transition-all duration-200" href="#">
             <span class="material-symbols-outlined" data-icon="settings"></span>

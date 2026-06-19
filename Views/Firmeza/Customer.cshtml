@@ -1,3 +1,12 @@
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Dashboard Admin";
+    
+
+    var nombreAdmin = HttpContextAccessor.HttpContext?.Session.GetString("Username") ?? "Admin";
+}
+
 <div class="fixed inset-0 -z-10 overflow-hidden">
 
 </div>
@@ -12,19 +21,19 @@
     <nav class="flex-1 space-y-xs">
         <!-- Mapping Dashboard -->
         <a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-bright/50 transition-all duration-200 active:scale-95"
-           href="#">
+           asp-action="Admin" asp-controller="Firmeza">
             <span class="material-symbols-outlined">dashboard</span>
-            <span class="font-body-md text-body-md">Dashboard</span>
+            <span class="font-body-md text-body-md">Products</span>
         </a>
         <!-- Mapping Users (Active for Client Management) -->
         <a class="flex items-center gap-md bg-primary/20 text-primary border-r-4 border-primary px-md py-sm transition-all duration-200"
-           href="#">
+           asp-controller="Firmeza" asp-action="Customer">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
             <span class="font-body-md text-body-md">Users</span>
         </a>
         <!-- Mapping Orders -->
         <a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-bright/50 transition-all duration-200 active:scale-95"
-           href="#">
+           asp-action="Sells" asp-controller="Firmeza">
             <span class="material-symbols-outlined">shopping_cart</span>
             <span class="font-body-md text-body-md">Sells</span>
         </a>
@@ -41,6 +50,16 @@
             <span class="material-symbols-outlined">add</span>
             New Entry
         </button>
+    </div>
+    <div class="mt-auto px-md pb-md flex items-center gap-md border-t border-outline-variant/20 pt-md">
+        <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center relative">
+            <span class="material-symbols-outlined text-on-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;" data-icon="account_circle"></span>
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 absolute bottom-0 right-0 border-2 border-slate-900 animate-pulse"></div>
+        </div>
+        <div class="flex flex-col overflow-hidden">
+            <span class="font-label-md text-label-md text-on-surface font-bold truncate">@nombreAdmin</span>
+            <span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Rol: Administrador</span>
+        </div>
     </div>
 </aside>
 <!-- Main Content Area -->

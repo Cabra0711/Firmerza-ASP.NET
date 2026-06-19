@@ -165,12 +165,20 @@ public class FirmezaController : Controller
     {
         return View();
     }
-
+    
     [AllowAnonymous]
     [HttpGet("Error401")]
     public IActionResult Error()
     {
         Response.StatusCode = 401;
+        var token = HttpContext.Session.GetString("JWToken");
+        var username = HttpContext.Session.GetString("Username");
+
+        if (!string.IsNullOrEmpty(token))
+        {
+            return RedirectToAction("Landing", "Firmeza");
+        }
+        
         return View();
     }
     
