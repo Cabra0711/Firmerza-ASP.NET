@@ -60,6 +60,11 @@
             <span class="font-label-md text-label-md text-on-surface font-bold truncate">@nombreAdmin</span>
             <span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Rol: Administrador</span>
         </div>
+        <a asp-controller="Firmeza" asp-action="Logout" 
+           class="p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-xl transition-all duration-200 flex items-center justify-center group" 
+           title="Cerrar sesión">
+            <span class="material-symbols-outlined text-xl group-hover:scale-105 transition-transform" data-icon="logout"></span>
+        </a>
     </div>
 </aside>
 <!-- Main Content Area -->

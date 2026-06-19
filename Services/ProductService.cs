@@ -1,4 +1,5 @@
 using Firmeza.Data;
+using Firmeza.Enums;
 using Firmeza.Models;
 using Firmeza.Response;
 using Firmeza.Services.Interfaces;
@@ -37,7 +38,7 @@ public class ProductService : IProductService
         {
             response.Data = product;
             response.Success = true;
-            response.Message = "Libro Encontrado en el sistema...";
+            response.Message = "Producto encontrado en el sistema";
             return response;
         }
         else
@@ -52,22 +53,34 @@ public class ProductService : IProductService
     public async Task<ServiceResponse<Product>> CreateProduct(Product product)
     {
         var response = new ServiceResponse<Product>();
+        
+        if (string.IsNullOrWhiteSpace(product.Sku))
+        {
+            product.Sku = GenerateSku();
+        }
         var products = await _context.Products.FirstOrDefaultAsync(p => p.Sku == product.Sku);
 
         if (products != null)
         {
             response.Success = false;
-            response.Message = "El libro digitado con ese SKU ya existe en el sistema";
+            response.Message = "El producto digitado con ese SKU ya existe en el sistema";
             return response;
         }
         else
         {
+            product.Status = product.Quantity switch
+            {
+                0 => ProductStatus.OutOfStock,
+                <= 30 => ProductStatus.LowStock,
+                > 30 => ProductStatus.InStock
+            };
+                
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
             
             response.Data = product;
             response.Success = true;
-            response.Message = "Libro Añadido a el sistema";
+            response.Message = "Producto Añadido a el sistema";
             return response;
         }
     }
@@ -86,10 +99,11 @@ public class ProductService : IProductService
             productExists.Quantity = product.Quantity;
             productExists.Status = product.Status;
             productExists.UpdatedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
             
             response.Data = productExists;
             response.Success = true;
-            response.Message = "Libro Actualizado en el sistema";
+            response.Message = "Producto Actualizado en el sistema";
             return response;
         }
         else
@@ -123,5 +137,11 @@ public class ProductService : IProductService
             return response;
         }
         
+    }
+    private static string GenerateSku()
+    {
+        var letters = Guid.NewGuid().ToString("N").Substring(0, 2).ToUpper();
+        var numbers = Random.Shared.Next(100, 999);
+        return $"FRM-{letters}-{numbers}";
     }
 }
