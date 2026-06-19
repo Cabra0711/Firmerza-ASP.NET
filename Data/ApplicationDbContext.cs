@@ -18,6 +18,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Product>().Property(p => p.Id).ValueGeneratedNever();
         modelBuilder.Entity<Sale>().Property(s => s.Id).ValueGeneratedNever();
         modelBuilder.Entity<SaleDetail>().Property(sd => sd.Id).ValueGeneratedNever();
+        modelBuilder.Entity<Product>().Property(p => p.ImageUrl).HasColumnName("ImageUrl");
 
         
         modelBuilder.Entity<Sale>()

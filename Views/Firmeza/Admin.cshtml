@@ -124,6 +124,8 @@
                         <option class="bg-slate-800">Electronics</option>
                         <option class="bg-slate-800">Hardware</option>
                         <option class="bg-slate-800">Logistics</option>
+                        <option class="bg-slate-800">Home</option>
+                        <option class="bg-slate-800">Clothing</option>
                     </select>
                 </div>
                 <div class="bg-slate-800 flex items-center px-md py-2 rounded-lg border border-slate-700">
@@ -153,7 +155,7 @@
            @foreach (var product in Model.Data)
            {
                 <div class="grid grid-cols-[auto_1fr_auto_auto_auto_auto] items-center gap-md px-lg py-md hover:bg-white/5 transition-colors group">
-                <img class="w-16 h-16 rounded-lg object-cover flex-shrink-0 bg-slate-700" src="@product.ImageUrl" alt="product-image"/>
+                    <img class="w-16 h-16 rounded-lg object-cover flex-shrink-0 bg-slate-700" src="@product.ImageUrl" alt="product-image"/>
                 <div>
                     <p class="font-bold text-on-surface text-body-md text-white">@product.Name</p>
                     <p class="text-slate-400 font-label-md text-label-md text-xs">SKU: @product.Sku</p>
@@ -162,7 +164,7 @@
                     <span class="bg-emerald-500/10 text-emerald-400 text-[10px] px-sm py-xs rounded uppercase font-bold border border-emerald-500/20">@product.Status</span>
                 </div>
                 <div class="w-24 text-right">
-                    <p class="text-primary font-bold">@product.Price/p>
+                    <p class="text-primary font-bold">@product.Price</p>
                 </div>
                 <div class="w-28 text-right">
                     <p class="text-slate-300 text-sm">@product.Quantity</p>
@@ -177,7 +179,7 @@
             </div>
 
         <div class="p-lg border-t border-slate-700 flex justify-between items-center bg-slate-800/10">
-            <span class="text-slate-400 text-sm font-label-md">Showing 2 of 12,842 products</span>
+            <span class="text-slate-400 text-sm font-label-md">Showing 2 of @Model.Data.Count()</span>
             <div class="flex gap-sm">
                 <button class="px-md py-2 bg-slate-800 border border-slate-700 rounded-lg text-white hover:text-primary transition-colors text-sm">
                     Previous
@@ -231,7 +233,10 @@
                     <select name="Category" class="bg-slate-800 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-300 w-full cursor-pointer">
                         <option value="Electronics">Electronics</option>
                         <option value="Hardware">Hardware</option>
+                        <option value="Software">Software</option>
                         <option value="Logistics">Logistics</option>
+                        <option value="Home">Home</option>
+                        <option value="Clothing">Clothing</option>
                     </select>
                 </div>
             </div>
