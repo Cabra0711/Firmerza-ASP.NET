@@ -161,9 +161,10 @@ public class FirmezaController : Controller
     
     [AllowAnonymous]
     [HttpGet("Landing")]
-    public IActionResult Landing()
+    public async Task<IActionResult> Landing()
     {
-        return View();
+        var response = await _productService.GetAllProducts(); 
+        return View(response);
     }
     
     [AllowAnonymous]

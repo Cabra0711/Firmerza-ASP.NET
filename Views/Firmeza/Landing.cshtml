@@ -1,248 +1,225 @@
+@using Firmeza.Enums
 @model Firmeza.Response.ServiceResponse<IEnumerable<Product>>
 
-<header class="fixed top-0 w-full z-50 bg-surface/60 dark:bg-surface/60 backdrop-blur-xl shadow-sm">
-    <div class="flex justify-between items-center px-lg h-16 w-full max-w-[1440px] mx-auto">
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
+    <div class="flex justify-between items-center px-4 md:px-8 h-16 w-full max-w-[1440px] mx-auto">
         <!-- Brand -->
         <div class="flex items-center gap-md">
             <span class="font-headline-md text-headline-md font-bold text-primary">FIRMEZA</span>
         </div>
-        <!-- Search Bar (on_left as per JSON) -->
-        <div class="flex-1 max-w-md mx-xl hidden md:flex items-center">
+
+        <!-- Search Bar — hidden on mobile -->
+        <div class="flex-1 max-w-md mx-8 hidden md:flex items-center">
             <div class="relative w-full group">
-                <span
-                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-                <input
-                    class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary text-body-md transition-all"
-                    placeholder="Search premium inventory..." type="text"/>
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                <input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary text-body-md transition-all"
+                       placeholder="Search premium inventory..." type="text"/>
             </div>
         </div>
-        <!-- Navigation Links -->
+
+        <!-- Nav — hidden on mobile -->
         <nav class="hidden lg:flex items-center gap-lg font-label-md text-label-md">
             <a class="text-primary border-b-2 border-primary pb-1" href="#">Shop</a>
             <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Categories</a>
             <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Deals</a>
             <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Orders</a>
         </nav>
+
         <!-- Actions -->
-        <div class="flex items-center gap-md ml-lg">
-            <button
-                class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all scale-95 duration-200">
+        <div class="flex items-center gap-2 ml-auto lg:ml-lg">
+            <button id="themeBtn"
+                    class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all hidden sm:block">
                 dark_mode
             </button>
-            <button
-                class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all scale-95 duration-200">
-                account_circle
-            </button>
-            <button
-                class="flex items-center gap-xs bg-primary text-on-primary px-md py-sm rounded-lg font-label-md hover:shadow-[0_0_15px_rgba(192,193,255,0.4)] transition-all">
+            <button class="flex items-center gap-xs bg-primary text-on-primary px-3 py-2 rounded-lg font-label-md hover:shadow-[0_0_15px_rgba(192,193,255,0.4)] transition-all text-sm">
                 <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
-                <span>Cart</span>
+                <span class="hidden sm:inline">Cart</span>
             </button>
+            <a asp-controller="Firmeza" asp-action="Logout"
+               class="p-2 text-on-surface-variant hover:text-error transition-colors rounded-lg"
+               title="Cerrar sesión">
+                <span class="material-symbols-outlined text-xl">logout</span>
+            </a>
         </div>
     </div>
 </header>
-<main class="pt-24 pb-xl px-container-margin max-w-[1440px] mx-auto space-y-2xl">
-    <!-- Hero Banner Section -->
-    <section class="relative w-full h-[500px] rounded-2xl overflow-hidden glass-panel group">
-        <div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10"></div>
+
+<main class="pt-20 pb-xl px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-12 md:space-y-16">
+
+    <!-- Hero Banner -->
+    <section class="relative w-full h-[280px] sm:h-[380px] md:h-[500px] rounded-2xl overflow-hidden glass-panel group">
+        <div class="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent z-10"></div>
         <div class="absolute inset-0 z-0">
             <img alt="Future Technology Hero"
                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                 data-alt="A cinematic, high-resolution render of futuristic tech hardware glowing with Electric Indigo and Vibrant Pink neon lights in a dark, minimalist laboratory. The atmosphere is professional and energetic, featuring clean lines and high-end materials like brushed aluminum and dark tempered glass. The lighting is low-key with sharp atmospheric highlights that emphasize the precision and transparency of the FIRMEZA brand identity."
                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpZwRdBlVJoRvnD4_spv-s-7kHNYXUQ0ajcnCqsUQXZfelq-FHrSlXcM06QAt18JbpvvoFP92EZr-oKbWpUlC__So2eCxx8ATpDLHZAC3XUZLzgEoq_tueYF0wjSnjKVJQKodllfk6hwPHedt1lWTJACuz8_UPLNf2aLuq50N0dfK9HwLoo3Yi-xHbSFifklsc9i1a3F3WR-oAMZd7f5iHPlzvLYf1CJhxHiYysID5cuPPgyObT_ofzFq4dMaPAwRQtKiWDW_5klw"/>
         </div>
-        <div class="relative z-20 h-full flex flex-col justify-center px-2xl max-w-2xl space-y-lg">
-            <div class="space-y-xs">
-                <span class="text-primary font-label-md uppercase tracking-widest">Premium Collection 2024</span>
-                <h1 class="font-display-lg text-display-lg text-on-background">Streamline Your Flow with Precision.</h1>
+        <div class="relative z-20 h-full flex flex-col justify-center px-6 md:px-12 max-w-2xl space-y-4 md:space-y-6">
+            <div class="space-y-2">
+                <span class="text-primary font-label-md uppercase tracking-widest text-xs md:text-sm">Premium Collection 2024</span>
+                <h1 class="font-display-lg text-display-lg text-on-background text-2xl sm:text-3xl md:text-5xl leading-tight">
+                    Streamline Your Flow with Precision.
+                </h1>
             </div>
-            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
-                Discover professional-grade inventory units engineered for high-performance operations and
-                administrative excellence.
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg text-sm md:text-base hidden sm:block">
+                Discover professional-grade inventory units engineered for high-performance operations.
             </p>
-            <div class="flex gap-md">
-                <button
-                    class="bg-primary text-on-primary px-xl py-md rounded-lg font-headline-md kinetic-hover shadow-lg">
+            <div class="flex gap-3">
+                <button class="bg-primary text-on-primary px-4 md:px-6 py-2 md:py-3 rounded-lg font-label-md text-sm md:text-base shadow-lg hover:brightness-110 transition-all">
                     Shop Now
                 </button>
-                <button
-                    class="border border-secondary text-secondary px-xl py-md rounded-lg font-headline-md backdrop-blur-md kinetic-hover">
+                <button class="border border-secondary text-secondary px-4 md:px-6 py-2 md:py-3 rounded-lg font-label-md text-sm md:text-base backdrop-blur-md hover:bg-secondary/10 transition-all">
                     Explore
                 </button>
             </div>
         </div>
     </section>
-    <!-- Category Horizontal Scroll -->
-    <section class="space-y-md">
+
+    <!-- Category Scroll -->
+    <section class="space-y-4">
         <div class="flex justify-between items-end">
-            <h2 class="font-headline-lg text-headline-lg text-on-background">Top Categories</h2>
-            <button class="text-primary font-label-md hover:underline flex items-center gap-xs">View All <span
-                    class="material-symbols-outlined text-[16px]">arrow_forward</span></button>
+            <h2 class="font-headline-lg text-headline-lg text-on-background text-xl md:text-2xl">Top Categories</h2>
+            <button class="text-primary font-label-md hover:underline flex items-center gap-xs text-sm">
+                View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
         </div>
-        <div class="flex gap-lg overflow-x-auto pb-md hide-scrollbar">
-            <!-- Categories -->
-            <div
-                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined text-[32px]">laptop_mac</span>
+        <div class="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 md:mx-0 md:px-0"
+             style="scrollbar-width:none;-ms-overflow-style:none">
+            @foreach (var (icon, label, color) in new[]
+            {
+                ("laptop_mac", "Computing", "text-primary bg-primary-container/20"),
+                ("memory", "Hardware", "text-secondary bg-secondary-container/20"),
+                ("sensors", "Smart Sensors", "text-on-primary-container bg-primary-container"),
+                ("storage", "Data Hubs", "text-tertiary bg-tertiary-container/20"),
+                ("router", "Networking", "text-outline bg-surface-container-highest"),
+                ("power", "Power", "text-outline bg-surface-container-highest"),
+            })
+            {
+                <div class="flex-none w-36 h-36 sm:w-44 sm:h-44 rounded-xl glass-panel p-3 flex flex-col items-center justify-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full @color flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[24px] sm:text-[28px]">@icon</span>
+                    </div>
+                    <span class="font-label-md text-on-surface text-xs sm:text-sm text-center">@label</span>
                 </div>
-                <span class="font-label-md text-on-surface">Computing</span>
-            </div>
-            <div
-                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
-                    <span class="material-symbols-outlined text-[32px]">memory</span>
-                </div>
-                <span class="font-label-md text-on-surface">Hardware</span>
-            </div>
-            <div
-                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer border-primary/40 bg-primary-container/5">
-                <div
-                    class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
-                    <span class="material-symbols-outlined text-[32px]">sensors</span>
-                </div>
-                <span class="font-label-md text-primary font-bold">Smart Sensors</span>
-            </div>
-            <div
-                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
-                    <span class="material-symbols-outlined text-[32px]">storage</span>
-                </div>
-                <span class="font-label-md text-on-surface">Data Hubs</span>
-            </div>
-            <div
-                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center text-outline">
-                    <span class="material-symbols-outlined text-[32px]">router</span>
-                </div>
-                <span class="font-label-md text-on-surface">Networking</span>
-            </div>
-            <div
-                class="flex-none w-48 aspect-square rounded-xl glass-panel p-md flex flex-col items-center justify-center gap-sm kinetic-hover cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center text-outline">
-                    <span class="material-symbols-outlined text-[32px]">power</span>
-                </div>
-                <span class="font-label-md text-on-surface">Power</span>
-            </div>
+            }
         </div>
     </section>
-    <!-- Trending Products Grid -->
-    <section class="space-y-lg">
+
+    <!-- Products Grid -->
+    <section class="space-y-6">
         <div class="flex justify-between items-center">
-            <div class="space-y-xs">
-                <h2 class="font-headline-lg text-headline-lg text-on-background">Trending Products</h2>
-                <p class="text-on-surface-variant font-body-md">Most requested inventory this week.</p>
+            <div class="space-y-1">
+                <h2 class="font-headline-lg text-headline-lg text-on-background text-xl md:text-2xl">Trending Products</h2>
+                <p class="text-on-surface-variant font-body-md text-sm hidden sm:block">Most requested inventory this week.</p>
             </div>
-            <div class="flex gap-sm">
-                <button class="p-sm rounded-full glass-panel hover:bg-primary-container/20 transition-all"><span
-                        class="material-symbols-outlined">filter_list</span></button>
-                <button class="p-sm rounded-full glass-panel hover:bg-primary-container/20 transition-all"><span
-                        class="material-symbols-outlined">sort</span></button>
+            <div class="flex gap-2">
+                <button class="p-2 rounded-full glass-panel hover:bg-primary-container/20 transition-all">
+                    <span class="material-symbols-outlined text-[20px]">filter_list</span>
+                </button>
+                <button class="p-2 rounded-full glass-panel hover:bg-primary-container/20 transition-all">
+                    <span class="material-symbols-outlined text-[20px]">sort</span>
+                </button>
             </div>
         </div>
-        <!-- Bento-style Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl">
-            <!-- Product Card 1 -->
-            <div class="glass-panel rounded-xl overflow-hidden group kinetic-hover flex flex-col">
-                    <div class="h-64 relative overflow-hidden bg-surface-container-low">
-                        <img alt="Core Processor 9"
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            @foreach (var product in Model.Data)
+            {
+                <div class="glass-panel rounded-xl overflow-hidden group hover:scale-[1.02] transition-transform duration-300 flex flex-col">
+                    <div class="h-48 sm:h-56 md:h-64 relative overflow-hidden bg-surface-container-low">
+                        <img alt="@product.Name"
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                             data-alt="A detailed studio product shot of a high-end computer processor chip with glowing neon etchings. The lighting is dramatic and moody, using the FIRMEZA primary indigo and secondary pink colors to highlight the technical details of the hardware. The background is a dark, reflective surface that creates a high-end, premium technology aesthetic suitable for an elite inventory management platform."
-                             src="fdsfsdfsd"/>
-                        <div class="absolute top-4 left-4">
-                        <span
-                            class="bg-tertiary-container/20 text-tertiary px-sm py-xs rounded-full font-label-md text-[12px] border border-tertiary/30 backdrop-blur-md">IN STOCK</span>
+                             src="@product.ImageUrl"/>
+                        <div class="absolute top-3 left-3">
+                            @if (product.Status == ProductStatus.InStock)
+                            {
+                                <span class="text-[10px] px-2 py-1 rounded uppercase font-bold border bg-black/60 text-emerald-400 border-black/60 backdrop-blur-sm">In Stock</span>
+                            }
+                            else if (product.Status == ProductStatus.LowStock)
+                            {
+                                <span class="text-[10px] px-2 py-1 rounded uppercase font-bold border bg-black/60 text-amber-400 border-black/60 backdrop-blur-sm">Low Stock</span>
+                            }
+                            else if (product.Status == ProductStatus.OutOfStock)
+                            {
+                                <span class="text-[10px] px-2 py-1 rounded uppercase font-bold border bg-black/60 text-slate-300 border-black/60 backdrop-blur-sm">Out of Stock</span>
+                            }
+                            else
+                            {
+                                <span class="text-[10px] px-2 py-1 rounded uppercase font-bold border bg-black/60 text-red-400 border-black/60 backdrop-blur-sm">Unavailable</span>
+                            }
                         </div>
-                        <button
-                            class="absolute bottom-4 right-4 p-sm bg-primary text-on-primary rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
-                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                        <button class="absolute bottom-3 right-3 p-2 bg-primary text-on-primary rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+                            <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
                         </button>
                     </div>
-                    <div class="p-lg space-y-md flex-1 flex flex-col">
-                        <div class="space-y-xs">
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-headline-md text-on-background">Core Stream-X9</h3>
-                                <div class="flex items-center gap-xs text-secondary">
-                                <span class="material-symbols-outlined text-[16px]"
-                                      style="font-variation-settings: 'FILL' 1;">star</span>
-                                    <span class="font-label-md">4.9</span>
-                                </div>
-                            </div>
-                            <p class="text-on-surface-variant font-body-md line-clamp-2">Next-generation multi-threaded
-                                processing unit with integrated glass-cooled heat pipes.</p>
+                    <div class="p-4 space-y-3 flex-1 flex flex-col">
+                        <div class="space-y-1">
+                            <h3 class="font-headline-md text-on-background text-base font-semibold line-clamp-1">@product.Name</h3>
+                            <p class="text-on-surface-variant font-body-md text-sm line-clamp-2">@product.Description</p>
                         </div>
-                        <div class="mt-auto pt-md flex items-center justify-between">
-                            <span class="text-headline-md font-bold text-primary">$899.00</span>
-                            <button
-                                class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-xs font-label-md">
-                                Details <span class="material-symbols-outlined text-[18px]">open_in_new</span></button>
+                        <div class="mt-auto pt-3 flex items-center justify-between">
+                            <span class="text-lg font-bold text-primary">$@product.Price.ToString("N0")</span>
+                            <button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-label-md text-sm">
+                                Details <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+        </div>
     </section>
-    <!-- Dynamic Promo Banner -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-lg h-[300px]">
-        <div class="md:col-span-2 relative rounded-2xl overflow-hidden glass-panel group kinetic-hover">
+
+    <!-- Promo Banner -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 min-h-[200px] md:h-[300px]">
+        <div class="md:col-span-2 relative rounded-2xl overflow-hidden glass-panel group hover:scale-[1.01] transition-transform">
             <div class="absolute inset-0 bg-gradient-to-r from-secondary-container/40 to-transparent z-10"></div>
             <div class="absolute inset-0 z-0">
                 <img alt="Flash Deal"
                      class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                     data-alt="An energetic and transparent image of a high-speed circuit board with light energy flowing through its paths. The color palette is dominated by Vibrant Pink and Electric Indigo against a deep black background. The style is modern minimalism with a kinetic energy that suggests rapid data flow and inventory efficiency, perfectly aligning with the Firmeza brand's high-performance inventory management promise."
                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKjzBsxENhjD61y7rNuq3wAr2Ci9eLqYMVTufdUkk9OWso_ucV3acQ8X1WgK0ApCJHB7b66clTsMCD_F_mDO4v10NgtlaE8VrWlaMr_jz5eZ_h5ClpYJfJHBB9U9kvvGnYUSKlXOyWup7wWbimg64xjm2W23W3G26E1-SYfxY8HfQL8J8kd_Zgbgaz60GA7pg7Cu8GEcDr7MfVCrVf5rX98_813c3NZ7UKwa9fXH1ORtbuJZtvLIJ64b0XCciZ722rQ_gNkSkHGUM"/>
             </div>
-            <div class="relative z-20 h-full p-2xl flex flex-col justify-center space-y-md">
-                <h2 class="font-headline-lg text-headline-lg text-white">Inventory Clearout</h2>
-                <p class="text-white/80 font-body-md max-w-sm">Save up to 45% on last-gen diagnostic hardware and legacy
-                    sensor kits.</p>
-                <button class="w-fit bg-secondary text-on-secondary px-lg py-sm rounded-lg font-label-md kinetic-hover">
+            <div class="relative z-20 h-full p-6 md:p-10 flex flex-col justify-center space-y-3 md:space-y-4">
+                <h2 class="font-headline-lg text-white text-xl md:text-2xl font-bold">Inventory Clearout</h2>
+                <p class="text-white/80 font-body-md max-w-sm text-sm md:text-base">Save up to 45% on last-gen diagnostic hardware and legacy sensor kits.</p>
+                <button class="w-fit bg-secondary text-on-secondary px-4 md:px-6 py-2 rounded-lg font-label-md text-sm hover:brightness-110 transition-all">
                     Claim Deals
                 </button>
             </div>
         </div>
-        <div
-            class="relative rounded-2xl overflow-hidden glass-panel p-2xl flex flex-col justify-center items-center text-center space-y-md border-primary/30 kinetic-hover">
-            <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-primary mb-md">
-                <span class="material-symbols-outlined text-[32px]">workspace_premium</span>
+        <div class="relative rounded-2xl overflow-hidden glass-panel p-6 md:p-8 flex flex-col justify-center items-center text-center space-y-3 border-primary/30 hover:scale-[1.01] transition-transform">
+            <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[28px]">workspace_premium</span>
             </div>
-            <h3 class="font-headline-md text-on-background">StockStream Gold</h3>
-            <p class="text-on-surface-variant font-body-md">Get 24h early access to all restocking events and exclusive
-                SKU drops.</p>
-            <button
-                class="text-primary font-label-md border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-all">
+            <h3 class="font-headline-md text-on-background font-semibold">StockStream Gold</h3>
+            <p class="text-on-surface-variant font-body-md text-sm">Get 24h early access to all restocking events and exclusive SKU drops.</p>
+            <button class="text-primary font-label-md border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-all text-sm">
                 Join Membership
             </button>
         </div>
     </section>
+
 </main>
+
 <script>
-    // Micro-interactions for glass panels
     document.querySelectorAll('.glass-panel').forEach(panel => {
         panel.addEventListener('mousemove', (e) => {
             const rect = panel.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            panel.style.setProperty('--mouse-x', `${x}px`);
-            panel.style.setProperty('--mouse-y', `${y}px`);
+            panel.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            panel.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
         });
     });
 
-    // Theme Toggle Logic
-    const themeBtn = document.querySelector('header button.material-symbols-outlined');
-    themeBtn.addEventListener('click', () => {
-        const html = document.documentElement;
-        if (html.classList.contains('dark')) {
-            html.classList.remove('dark');
-            themeBtn.innerText = 'light_mode';
-        } else {
-            html.classList.add('dark');
-            themeBtn.innerText = 'dark_mode';
-        }
-    });
-
+    const themeBtn = document.getElementById('themeBtn');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeBtn.innerText = 'light_mode';
+            } else {
+                html.classList.add('dark');
+                themeBtn.innerText = 'dark_mode';
+            }
+        });
+    }
 </script>
