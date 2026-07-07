@@ -10,3 +10,10 @@ obj/
 Thumbs.db
 .paket/
 .fake/
+
+# Vue client
+client/node_modules/
+client/dist/
+
+# Docker / secretos locales
+.env

@@ -1,0 +1,8 @@
+bin/
+obj/
+Firmeza.Tests/
+client/
+.git/
+.idea/
+**/node_modules/
+**/dist/

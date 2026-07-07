@@ -97,7 +97,12 @@ public class ProductService : IProductService
             productExists.Price = product.Price;
             productExists.Description = product.Description;
             productExists.Quantity = product.Quantity;
-            productExists.Status = product.Status;
+            productExists.Status = product.Quantity switch
+            {
+                0 => ProductStatus.OutOfStock,
+                <= 30 => ProductStatus.LowStock,
+                > 30 => ProductStatus.InStock
+            };
             productExists.UpdatedAt = DateTime.UtcNow;
             await _context.SaveChangesAsync();
             

@@ -24,10 +24,11 @@ public class ProductValidator : AbstractValidator<Product>
             .ScalePrecision(2, 10).WithMessage("El precio no puede tener más de 2 decimales.");
 
      
+        // El SKU es opcional al crear (ProductService lo autogenera si viene vacío);
+        // si el usuario lo escribe a mano, se le exige el formato.
         RuleFor(p => p.Sku)
-            .NotEmpty().WithMessage("El código SKU es obligatorio.")
-         
-            .Matches(@"^[A-Z]{3}-\d{4}$").WithMessage("El SKU debe cumplir el formato de 3 letras mayúsculas, un guion y 4 números (Ej: ABC-1234).");
+            .Matches(@"^[A-Z]{3}-\d{4}$").When(p => !string.IsNullOrWhiteSpace(p.Sku))
+            .WithMessage("El SKU debe cumplir el formato de 3 letras mayúsculas, un guion y 4 números (Ej: ABC-1234).");
 
        
         RuleFor(p => p.Quantity)
@@ -37,13 +38,6 @@ public class ProductValidator : AbstractValidator<Product>
 
        
         RuleFor(p => p.Category)
-            .NotEmpty().WithMessage("La categoría es obligatoria.")
-            
-            .IsInEnum().WithMessage("La categoría ingresada no está permitida. Usa: Electrónica, Ropa, Hogar o Deportes.");
-    }
-    private bool BeAValidCategory(string category)
-    {
-        var AllowedCategories = new List<string> { "Electrónica", "Ropa", "Hogar", "Deportes" };
-        return AllowedCategories.Contains(category);
+            .IsInEnum().WithMessage("La categoría ingresada no está permitida.");
     }
 }

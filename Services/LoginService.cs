@@ -53,6 +53,7 @@ public class LoginService : ILoginService
         else
         {
             customer.Role = UserRole.Customer;
+            customer.IsActive = true;
             customer.Password = BCrypt.Net.BCrypt.HashPassword(customer.Password);
             await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
@@ -68,7 +69,7 @@ public class LoginService : ILoginService
     public async Task<ServiceResponse<Customer>> Login(string username, string password)
     {
         var response = new ServiceResponse<Customer>();
-        var customerExists = await _context.Customers.SingleOrDefaultAsync(c => EF.Functions.ILike(c.UserName, username));
+        var customerExists = await _context.Customers.SingleOrDefaultAsync(c => c.UserName.ToLower() == username.ToLower());
         
         if (customerExists == null)
         {
@@ -76,7 +77,14 @@ public class LoginService : ILoginService
             response.Message = "Ingrese sus credenciales nuevamente";
             return response;
         }
-        
+
+        if (!customerExists.IsActive)
+        {
+            response.Success = false;
+            response.Message = "Esta cuenta ha sido deshabilitada. Contacta al administrador.";
+            return response;
+        }
+
         var verificationResult = BCrypt.Net.BCrypt.Verify(password, customerExists.Password);
         
         if (verificationResult == true)
@@ -92,6 +100,7 @@ public class LoginService : ILoginService
                 {
                     new Claim(ClaimTypes.Name, customerExists.UserName),
                     new Claim(ClaimTypes.Role, customerExists.Role.ToString()),
+                    new Claim("customerId", customerExists.Id.ToString()),
                 }),
                 IssuedAt = DateTime.UtcNow,
                 NotBefore = DateTime.UtcNow,

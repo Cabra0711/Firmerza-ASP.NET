@@ -57,6 +57,12 @@
 </aside>
 
 <main class="ml-64 flex-1 p-xl relative min-h-screen bg-slate-900 text-white">
+    @if (TempData["ProductError"] != null)
+    {
+        <div class="mb-lg p-md rounded-xl border border-error/30 bg-error/10 text-error text-sm">
+            @TempData["ProductError"]
+        </div>
+    }
     <header class="flex justify-between items-center mb-xl border-b border-slate-800 pb-5">
         <div>
             <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">¡Bienvenido de nuevo, <span class="text-emerald-400">@nombreAdmin</span>! 👋</h2>
@@ -140,9 +146,21 @@
                         <option class="bg-slate-800">Alphabetical</option>
                     </select>
                 </div>
-                <button class="p-2 bg-slate-800 border border-slate-700 rounded-lg hover:bg-primary-container/20 transition-colors">
+                <a asp-action="ExportProducts" asp-controller="Firmeza" asp-route-format="xlsx"
+                   class="p-2 bg-slate-800 border border-slate-700 rounded-lg hover:bg-primary-container/20 transition-colors" title="Exportar a Excel">
                     <span class="material-symbols-outlined text-primary" data-icon="cloud_download"></span>
-                </button>
+                </a>
+                <a asp-action="ExportProducts" asp-controller="Firmeza" asp-route-format="pdf"
+                   class="p-2 bg-slate-800 border border-slate-700 rounded-lg hover:bg-primary-container/20 transition-colors" title="Exportar a PDF">
+                    <span class="material-symbols-outlined text-primary" data-icon="picture_as_pdf"></span>
+                </a>
+                <form asp-action="ImportProducts" asp-controller="Firmeza" method="post" enctype="multipart/form-data" class="flex items-center gap-xs">
+                    <input type="file" name="file" accept=".xlsx" required
+                           class="text-xs text-slate-300 file:mr-sm file:py-2 file:px-md file:rounded-lg file:border-0 file:bg-slate-800 file:text-primary file:cursor-pointer w-40" />
+                    <button type="submit" class="p-2 bg-slate-800 border border-slate-700 rounded-lg hover:bg-primary-container/20 transition-colors" title="Importar Excel">
+                        <span class="material-symbols-outlined text-primary" data-icon="cloud_upload"></span>
+                    </button>
+                </form>
             </div>
         </div>
 
@@ -194,8 +212,16 @@
                     <p class="text-slate-300 text-sm">@product.Quantity</p>
                 </div>
                 <div class="w-16 flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button class="p-xs hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="edit"></span></button>
-                    <button class="p-xs hover:text-error transition-colors"><span class="material-symbols-outlined text-lg" data-icon="delete"></span></button>
+                    <button type="button" class="p-xs hover:text-primary transition-colors btnEditProduct"
+                            data-id="@product.Id" data-name="@product.Name" data-description="@product.Description"
+                            data-category="@product.Category" data-price="@product.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                            data-quantity="@product.Quantity" data-imageurl="@product.ImageUrl">
+                        <span class="material-symbols-outlined text-lg" data-icon="edit"></span>
+                    </button>
+                    <form method="post" asp-action="DeleteProduct" asp-route-id="@product.Id"
+                          onsubmit="return confirm('¿Eliminar este producto?');">
+                        <button type="submit" class="p-xs hover:text-error transition-colors"><span class="material-symbols-outlined text-lg" data-icon="delete"></span></button>
+                    </form>
                 </div>
             </div>
            }
@@ -242,14 +268,20 @@
             
             <div class="flex flex-col gap-xs">
                 <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Product Name</label>
-                <input type="text" name="Name" required placeholder="e.g., Vanguard Chrono X" 
+                <input type="text" name="Name" required placeholder="e.g., Vanguard Chrono X"
                        class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+            </div>
+
+            <div class="flex flex-col gap-xs">
+                <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Description</label>
+                <textarea name="Description" required placeholder="Short product description" rows="2"
+                       class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full"></textarea>
             </div>
 
             <div class="grid grid-cols-2 gap-md">
                 <div class="flex flex-col gap-xs">
                     <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">SKU</label>
-                    <input type="text" name="Sku" placeholder="SS-XX-000" 
+                    <input type="text" name="Sku" placeholder="ABC-1234"
                            class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
                 </div>
                 <div class="flex flex-col gap-xs">
@@ -296,6 +328,76 @@
     </div>
 </div>
 
+<div id="editProductModal" class="fixed inset-0 z-[150] hidden flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4 transition-all duration-300">
+    <div class="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300" id="editModalContainer">
+
+        <div class="p-lg border-b border-slate-800 flex justify-between items-center bg-slate-800/20">
+            <div>
+                <h3 class="text-xl font-bold text-white tracking-tight">Edit Product</h3>
+                <p class="text-xs text-slate-400">Update the details of this item in StockStream</p>
+            </div>
+            <button type="button" id="btnCloseEditModal" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form method="post" id="editProductForm" class="p-lg space-y-md text-sm text-slate-300">
+            <div class="flex flex-col gap-xs">
+                <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Product Name</label>
+                <input type="text" name="Name" id="editName" required
+                       class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+            </div>
+
+            <div class="flex flex-col gap-xs">
+                <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Description</label>
+                <textarea name="Description" id="editDescription" required rows="2"
+                       class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full"></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-md">
+                <div class="flex flex-col gap-xs">
+                    <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Category</label>
+                    <select name="Category" id="editCategory" class="bg-slate-800 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-300 w-full cursor-pointer">
+                        <option value="Electronics">Electronics</option>
+                        <option value="Hardware">Hardware</option>
+                        <option value="Software">Software</option>
+                        <option value="Logistics">Logistics</option>
+                        <option value="Home">Home</option>
+                        <option value="Clothing">Clothing</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-xs">
+                    <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Price ($)</label>
+                    <input type="number" step="0.01" name="Price" id="editPrice" required
+                           class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-md">
+                <div class="flex flex-col gap-xs">
+                    <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Stock</label>
+                    <input type="number" name="Quantity" id="editQuantity" required
+                           class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+                </div>
+                <div class="flex flex-col gap-xs">
+                    <label class="font-semibold text-xs text-slate-400 uppercase tracking-wider">Image URL</label>
+                    <input type="url" name="ImageUrl" id="editImageUrl"
+                           class="bg-slate-800/50 border border-slate-700 rounded-xl px-md py-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white w-full" />
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-sm border-t border-slate-800 pt-md mt-lg">
+                <button type="button" id="btnCancelEditModal" class="px-lg py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-medium rounded-xl transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="px-lg py-2 bg-primary text-on-primary font-bold rounded-xl hover:brightness-110 shadow-lg shadow-primary/20 transition-all">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const modal = document.getElementById("productModal");
@@ -304,9 +406,53 @@
         const btnClose = document.getElementById("btnCloseModal");
         const btnCancel = document.getElementById("btnCancelModal");
 
+        const editModal = document.getElementById("editProductModal");
+        const editContainer = document.getElementById("editModalContainer");
+        const btnCloseEdit = document.getElementById("btnCloseEditModal");
+        const btnCancelEdit = document.getElementById("btnCancelEditModal");
+        const editForm = document.getElementById("editProductForm");
+
+        function openEditModal() {
+            editModal.classList.remove("hidden");
+            setTimeout(() => {
+                editModal.classList.add("opacity-100");
+                editContainer.classList.remove("scale-95", "opacity-0");
+                editContainer.classList.add("scale-100", "opacity-100");
+            }, 10);
+        }
+
+        function closeEditModal() {
+            editContainer.classList.remove("scale-100", "opacity-100");
+            editContainer.classList.add("scale-95", "opacity-0");
+            setTimeout(() => {
+                editModal.classList.add("hidden");
+            }, 300);
+        }
+
+        document.querySelectorAll(".btnEditProduct").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                editForm.action = "/firmeza/Admin/edit/" + btn.dataset.id;
+                document.getElementById("editName").value = btn.dataset.name || "";
+                document.getElementById("editDescription").value = btn.dataset.description || "";
+                document.getElementById("editCategory").value = btn.dataset.category || "Electronics";
+                document.getElementById("editPrice").value = btn.dataset.price || "0";
+                document.getElementById("editQuantity").value = btn.dataset.quantity || "0";
+                document.getElementById("editImageUrl").value = btn.dataset.imageurl || "";
+                openEditModal();
+            });
+        });
+
+        btnCloseEdit.addEventListener("click", closeEditModal);
+        btnCancelEdit.addEventListener("click", closeEditModal);
+        editModal.addEventListener("click", function (e) {
+            if (e.target === editModal) {
+                closeEditModal();
+            }
+        });
+
         function openModal() {
             modal.classList.remove("hidden");
-           
+
             setTimeout(() => {
                 modal.classList.add("opacity-100");
                 container.classList.remove("scale-95", "opacity-0");
@@ -319,7 +465,7 @@
             container.classList.add("scale-95", "opacity-0");
             setTimeout(() => {
                 modal.classList.add("hidden");
-            }, 300); 
+            }, 300);
         }
 
         // Eventos

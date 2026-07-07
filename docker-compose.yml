@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-firmeza}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-firmeza123}
+    ports:
+      - "5433:5432"
+    volumes:
+      - firmeza_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      # Swagger solo se sirve cuando ASPNETCORE_ENVIRONMENT=Development. Cambiar a Production
+      # (via .env) para un despliegue real donde no se quiera exponer /swagger públicamente.
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ConnectionStrings__PostgresConnection: "Server=db;Port=5432;Database=${POSTGRES_DB:-firmeza};User Id=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-firmeza123};"
+      JwtSettings__SecretKey: ${JWT_SECRET_KEY:?Set JWT_SECRET_KEY in your .env file}
+      SmtpSettings__Host: ${SMTP_HOST:-}
+      SmtpSettings__Port: ${SMTP_PORT:-587}
+      SmtpSettings__User: ${SMTP_USER:-}
+      SmtpSettings__Password: ${SMTP_PASSWORD:-}
+      SmtpSettings__From: ${SMTP_FROM:-no-reply@firmeza.com}
+
+volumes:
+  firmeza_pgdata:

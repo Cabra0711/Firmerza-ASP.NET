@@ -14,10 +14,18 @@ public class FirmezaController : Controller
 {
     private readonly IProductService _productService;
     private readonly ILoginService _loginService;
-    public FirmezaController(ILoginService loginService,  IProductService productService)
+    private readonly ISaleService _saleService;
+    private readonly ICustomerService _customerService;
+    private readonly IReportService _reportService;
+    private readonly Validators.ProductValidator _productValidator;
+    public FirmezaController(ILoginService loginService,  IProductService productService, ISaleService saleService, ICustomerService customerService, IReportService reportService, Validators.ProductValidator productValidator)
     {
         _productService = productService;
         _loginService = loginService;
+        _saleService = saleService;
+        _customerService = customerService;
+        _reportService = reportService;
+        _productValidator = productValidator;
     }
     
     [AllowAnonymous]
@@ -119,11 +127,18 @@ public class FirmezaController : Controller
     [HttpPost("Admin/create")]
     public async Task<IActionResult> CreateProduct(Product product)
     {
+        var validationResult = await _productValidator.ValidateAsync(product);
+        if (!validationResult.IsValid)
+        {
+            TempData["ProductError"] = string.Join(" | ", validationResult.Errors.Select(e => e.ErrorMessage));
+            return RedirectToAction("Admin", "Firmeza");
+        }
+
         product.CreatedAt =  DateTime.UtcNow;
         product.UpdatedAt = DateTime.UtcNow;
         await  _productService.CreateProduct(product);
         return RedirectToAction("Admin", "Firmeza");
-        
+
     }
 
     [Authorize]
@@ -138,6 +153,13 @@ public class FirmezaController : Controller
     [HttpPost("Admin/edit/{id}")]
     public async Task<IActionResult> UpdateProduct(Guid id ,Product product)
     {
+        var validationResult = await _productValidator.ValidateAsync(product);
+        if (!validationResult.IsValid)
+        {
+            TempData["ProductError"] = string.Join(" | ", validationResult.Errors.Select(e => e.ErrorMessage));
+            return RedirectToAction("Admin", "Firmeza");
+        }
+
         product.Id = id;
         product.UpdatedAt = DateTime.UtcNow;
         await _productService.UpdateProduct(product.Id, product);
@@ -145,18 +167,136 @@ public class FirmezaController : Controller
     }
     
     
-    [Authorize] 
-    [HttpGet("Admin-Customer")]
-    public IActionResult Customer()
+    [Authorize]
+    [HttpPost("Admin/products/import")]
+    public async Task<IActionResult> ImportProducts(IFormFile file)
     {
-        return View();
+        if (file == null || file.Length == 0)
+        {
+            TempData["ProductError"] = "Debe seleccionar un archivo Excel (.xlsx) para importar.";
+            return RedirectToAction("Admin", "Firmeza");
+        }
+
+        await using var stream = file.OpenReadStream();
+        var result = await _reportService.ImportProducts(stream);
+
+        TempData["ProductError"] = result.Errors.Count > 0
+            ? $"Importados {result.SuccessCount} de {result.TotalRows}. Errores: " + string.Join(" | ", result.Errors)
+            : $"Importados {result.SuccessCount} de {result.TotalRows} productos con éxito.";
+
+        return RedirectToAction("Admin", "Firmeza");
+    }
+
+    [Authorize]
+    [HttpGet("Admin/products/export")]
+    public async Task<IActionResult> ExportProducts(string format, ProductCategory? category, ProductStatus? status)
+    {
+        var response = await _productService.GetAllProducts();
+        var products = (response.Data ?? Enumerable.Empty<Product>()).AsEnumerable();
+
+        if (category.HasValue)
+        {
+            products = products.Where(p => p.Category == category.Value);
+        }
+        if (status.HasValue)
+        {
+            products = products.Where(p => p.Status == status.Value);
+        }
+
+        if (format == "pdf")
+        {
+            var pdfBytes = _reportService.ExportProductsToPdf(products);
+            return File(pdfBytes, "application/pdf", "productos.pdf");
+        }
+
+        var excelBytes = _reportService.ExportProductsToExcel(products);
+        return File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "productos.xlsx");
+    }
+
+    [Authorize]
+    [HttpGet("Admin-Customer")]
+    public async Task<IActionResult> Customer(string? search)
+    {
+        var response = await _customerService.GetAllCustomers(search);
+        return View(response);
+    }
+
+    [Authorize]
+    [HttpPost("Admin/customer/disable/{id}")]
+    public async Task<IActionResult> DisableCustomer(Guid id)
+    {
+        await _customerService.SetActive(id, false);
+        return RedirectToAction("Customer", "Firmeza");
+    }
+
+    [Authorize]
+    [HttpPost("Admin/customer/enable/{id}")]
+    public async Task<IActionResult> EnableCustomer(Guid id)
+    {
+        await _customerService.SetActive(id, true);
+        return RedirectToAction("Customer", "Firmeza");
     }
     
-    [Authorize] 
-    [HttpGet("Admin-Sells")]
-    public IActionResult Sells()
+    [Authorize]
+    [HttpPost("Admin/customers/import")]
+    public async Task<IActionResult> ImportCustomers(IFormFile file)
     {
-        return View();
+        if (file == null || file.Length == 0)
+        {
+            TempData["ProductError"] = "Debe seleccionar un archivo Excel (.xlsx) para importar.";
+            return RedirectToAction("Customer", "Firmeza");
+        }
+
+        await using var stream = file.OpenReadStream();
+        var result = await _reportService.ImportCustomers(stream);
+
+        TempData["ProductError"] = result.Errors.Count > 0
+            ? $"Importados {result.SuccessCount} de {result.TotalRows}. Errores: " + string.Join(" | ", result.Errors)
+            : $"Importados {result.SuccessCount} de {result.TotalRows} clientes con éxito.";
+
+        return RedirectToAction("Customer", "Firmeza");
+    }
+
+    [Authorize]
+    [HttpGet("Admin/customers/export")]
+    public async Task<IActionResult> ExportCustomers(string format, string? search)
+    {
+        var response = await _customerService.GetAllCustomers(search);
+        var customers = response.Data ?? Enumerable.Empty<Customer>();
+
+        if (format == "pdf")
+        {
+            var pdfBytes = _reportService.ExportCustomersToPdf(customers);
+            return File(pdfBytes, "application/pdf", "clientes.pdf");
+        }
+
+        var excelBytes = _reportService.ExportCustomersToExcel(customers);
+        return File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "clientes.xlsx");
+    }
+
+    [Authorize]
+    [HttpGet("Admin/sales/export")]
+    public async Task<IActionResult> ExportSales(string format, DateTime? from, DateTime? to, SaleStatus? status)
+    {
+        var response = await _saleService.GetAllSales(from, to, status);
+        var sales = response.Data ?? Enumerable.Empty<Sale>();
+
+        if (format == "pdf")
+        {
+            var pdfBytes = _reportService.ExportSalesToPdf(sales);
+            return File(pdfBytes, "application/pdf", "ventas.pdf");
+        }
+
+        var excelBytes = _reportService.ExportSalesToExcel(sales);
+        return File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ventas.xlsx");
+    }
+
+    [Authorize]
+    [HttpGet("Admin-Sells")]
+    public async Task<IActionResult> Sells(DateTime? from, DateTime? to, SaleStatus? status)
+    {
+        var response = await _saleService.GetAllSales(from, to, status);
+        return View(response);
     }
     
     [AllowAnonymous]
